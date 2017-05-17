@@ -1,0 +1,94 @@
+/* learn.wxss */
+swiper {
+  height: 150px;
+}
+
+swiper-item image {
+  width: 100%;
+  height: 100%;
+}
+
+.section-clock {
+  width: 750rpx;
+  height: 100rpx;
+  background-repeat: no-repeat;
+  background-size: 750rpx 100rpx;
+  position: relative;
+  z-index: 2;
+  margin-top: 2rpx;
+  margin-bottom: 2rpx;
+  flex-direction: row;
+  display: flex;
+}
+
+.clockButton {
+  width: 250rpx;
+  height: 100rpx;
+  background-color: #00B08E;
+  position: relative;
+  background-size: 250rpx 100rpx;
+  border-radius: 0 50rpx 50rpx 0;
+}
+
+.text-date, .text-week, .text-clock {
+  color: white;
+}
+
+.text-date, .text-week {
+  white-space: nowrap;
+  font-size: 24rpx;
+  margin-top: 12rpx;
+}
+
+.text-date {
+  position: absolute;
+  left: 32rpx;
+}
+
+.text-week {
+  position: absolute;
+  right: 45rpx;
+}
+
+.text-clock {
+  position: absolute;
+  left: 50%;
+  bottom: 0rpx;
+  transform: translateX(-50%);
+  margin-bottom: 12rpx;
+  font-size: 36rpx;
+}
+/*注：这里不用指定宽，这个宽度会根据子View来伸缩，如果指定则出错
+  time：2017年5月18日03:02:57
+  被这个BUG浪费1h~~~*/
+.item-info-wrap {
+  height: 100rpx;
+}
+
+.item-info0, .item-info1, .item-info2 {
+  width: 166rpx;
+  height: 100rpx;
+  position: relative;
+}
+
+.text-count, .text-title {
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+}
+
+.text-count {
+  color: #000000;
+  font-size: 28rpx;
+  transform: translateX(-50%);
+  margin-top: 12rpx;
+}
+
+.text-title {
+  font-size: 24rpx;
+  color: #888888;
+  bottom: 0rpx;
+  transform: translateX(-50%);
+  margin-bottom: 12rpx;
+}

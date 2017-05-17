@@ -1,0 +1,40 @@
+{
+  "pages":[
+    "pages/learn/learn",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/test/test"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/learn/learn",
+      "text": "学习",
+      "iconPath": "images/tab1.png",
+      "selectedIconPath": "images/tab1.png"
+    },
+    {
+      "pagePath":"pages/logs/logs",
+      "text":"考试",
+      "iconPath":"images/tab2.png",
+      "selectedIconPath":"images/tab2.png"
+    },
+    {
+      "pagePath":"pages/test/test",
+      "text":"竞赛",
+      "iconPath":"images/tab3.png",
+      "selectedIconPath":"images/tab3.png"
+    },
+    {
+      "pagePath":"pages/index/index",
+      "text":"个人中心",
+      "iconPath":"images/tab4.png",
+      "selectedIconPath":"images/tab4.png"
+    }]
+  }
+}

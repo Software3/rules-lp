@@ -1,0 +1,29 @@
+<!--learn.wxml-->
+<swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
+  <block wx:for="{{imageUrls}}">
+    <swiper-item>
+        <image src="{{item}}" class="slide-image" mode="aspectFill"></image>
+    </swiper-item>
+  </block>
+</swiper>
+
+<view class="section-clock" bindtap="gotoClock">
+  <view class="clockButton">
+    <text class="text-date">{{date}}</text>
+    <text class="text-week">{{week}}</text>
+    <text class="text-clock">打卡</text>
+  </view>
+  <template name="item-info">
+    <view class="item-info{{id}}">
+      <text class="text-count">{{count}}</text>
+      <text class="text-title">{{title}}</text>
+    </view>
+  </template>
+  <view wx:for="{{infoObjArray}}" class="item-info-wrap">
+    <template is="item-info" data="{{...item}}"></template>
+    <!--<view class="item-info{{item.id}}">
+      <text class="text-count">{{item.count}}</text>
+      <text class="text-title">{{item.title}}</text>
+    </view>-->
+  </view>
+</view>
