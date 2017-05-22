@@ -1,24 +1,10 @@
 <!--test.wxml-->
-<view class="section">
-  <view class="section__title">vertical scroll</view>
-  <scroll-view scroll-y="true" style="height: 200px;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view id="green" class="scroll-view-item bc_green"></view>
-    <view id="red"  class="scroll-view-item bc_red"></view>
-    <view id="yellow" class="scroll-view-item bc_yellow"></view>
-    <view id="blue" class="scroll-view-item bc_blue"></view>
-  </scroll-view>
-
-  <view class="btn-area">
-    <button size="mini" bindtap="tap">click me to scroll into view </button>
-    <button size="mini" bindtap="tapMove">click me to scroll</button>
+<view class="container">
+  <view class="test-funcs">
+    <view class="btn-func" bindtap="doWrong" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
+      <image src="../../images/doExam.png" class="icon"></image>
+      <text class="btn-text">{{funcTitle[0]}}</text>
+      <image src="../../images/rightArrow.png" class="icon"></image>
+    </view>
   </view>
-</view>
-<view class="section section_gap">
-  <view class="section__title">horizontal scroll</view>
-  <scroll-view class="scroll-view_H" scroll-x="true" style="width: 100%">
-    <view id="green" class="scroll-view-item_H bc_green"></view>
-    <view id="red"  class="scroll-view-item_H bc_red"></view>
-    <view id="yellow" class="scroll-view-item_H bc_yellow"></view>
-    <view id="blue" class="scroll-view-item_H bc_blue"></view>
-  </scroll-view>
 </view>

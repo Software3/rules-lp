@@ -1,0 +1,21 @@
+<!--punchClock.wxml-->
+<view class="container">
+   <template name="item-info">
+      <view class="item-info{{id}}">
+        <text class="text-count">{{count}}</text>
+        <text class="text-title">{{title}}</text>
+      </view>
+    </template>
+    <text class="item-title">{{todayHolder}}</text>
+    <view class="item-info-wrap">
+      <block wx:for="{{infoObjArray}}" >
+        <template is="item-info" data="{{...item}}"></template>
+      </block>
+    </view>
+
+    <view class="form-area">
+      <textarea placeholder="{{placeholder}}" class="textarea" placeholder-class="text-placeholder" maxlength="140"/>
+      <button type="primary" class="btn-primary">{{gotoClock}}</button>
+      <button type="default">{{waitClock}}</button>
+    </view>
+</view>

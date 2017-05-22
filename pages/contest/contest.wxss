@@ -1,6 +1,6 @@
-/* test.wxss */
+/* contest.wxss */
 @import "../../utils/btnFunc.wxss";
-.test-funcs {
+.contest-funcs {
   width: 100%;
   margin: 36rpx 0;
 }

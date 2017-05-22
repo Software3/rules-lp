@@ -1,0 +1,54 @@
+/* mine.wxss */
+.userinfo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #FFFFFF;
+  margin: 36rpx 0;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.userfuncs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.btn-func {
+  width: 100%;
+  height: 112rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #FFFFFF;
+  position: relative;
+  margin-top: 4rpx;
+}
+
+.btn-func-hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  opacity: 0.7;
+}
+
+.icon {
+  width: 48rpx;
+  height: 48rpx;
+  margin: 32rpx;
+}
+
+.btn-text {
+  width: 100%;
+  font-size: 36rpx;
+}

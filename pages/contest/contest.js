@@ -1,11 +1,11 @@
-// test.js
+// contest.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    funcTitle:["进入考试"]
+    funcTitle:["报名竞赛","进入竞赛"]
   },
 
   /**

@@ -1,11 +1,19 @@
-// test.js
+// punchClock.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    funcTitle:["进入考试"]
+    todayHolder:"你今天的学习内容如下：",
+    infoObjArray: [
+      { id: 0, count: 0, title: '今日刷题/道' },
+      { id: 1, count: 0, title: '今日学习/分' },
+      { id: 2, count: 0, title: '共打卡/天' },
+    ],
+    placeholder:"请输入你的想法或者感受吧，最多140个字哦",
+    gotoClock:"去打卡",
+    waitClock:"学习会再来打卡"
   },
 
   /**
@@ -61,6 +69,20 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
+  
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom: function () {
+  
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
   
   }
 })

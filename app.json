@@ -1,40 +1,49 @@
 {
-  "pages":[
+  "pages": [
     "pages/learn/learn",
-    "pages/index/index",
     "pages/logs/logs",
-    "pages/test/test"
+    "pages/test/test",
+    "pages/contest/contest",
+    "pages/mine/mine",
+    "pages/punchClock/punchClock",
+    "pages/read/read",
+    "pages/exercisePage/exercisePage",
+    "pages/specialExercises/specialExercises"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/learn/learn",
-      "text": "学习",
-      "iconPath": "images/tab1.png",
-      "selectedIconPath": "images/tab1.png"
-    },
-    {
-      "pagePath":"pages/logs/logs",
-      "text":"考试",
-      "iconPath":"images/tab2.png",
-      "selectedIconPath":"images/tab2.png"
-    },
-    {
-      "pagePath":"pages/test/test",
-      "text":"竞赛",
-      "iconPath":"images/tab3.png",
-      "selectedIconPath":"images/tab3.png"
-    },
-    {
-      "pagePath":"pages/index/index",
-      "text":"个人中心",
-      "iconPath":"images/tab4.png",
-      "selectedIconPath":"images/tab4.png"
-    }]
+    "color": "#95888B",
+    "selectedColor": "#4285F4",
+    "list": [
+      {
+        "pagePath": "pages/learn/learn",
+        "text": "学习",
+        "iconPath": "images/learnNormal.png",
+        "selectedIconPath": "images/learnPressed.png"
+      },
+      {
+        "pagePath": "pages/test/test",
+        "text": "考试",
+        "iconPath": "images/testNormal.png",
+        "selectedIconPath": "images/testPressed.png"
+      },
+      {
+        "pagePath": "pages/contest/contest",
+        "text": "竞赛",
+        "iconPath": "images/contestNormal.png",
+        "selectedIconPath": "images/contestPressed.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "个人中心",
+        "iconPath": "images/mineNormal.png",
+        "selectedIconPath": "images/minePressed.png"
+      }
+    ]
   }
 }
