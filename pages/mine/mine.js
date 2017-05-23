@@ -10,7 +10,7 @@ Page({
   bindViewTap: function (event) {
     wx.navigateTo({
       // url: '../logs/logs'
-      url: '../test/test'
+      url: '../editAccount/editAccount'
     })
   },
   //事件处理函数，查看错题

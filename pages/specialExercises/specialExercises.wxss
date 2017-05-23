@@ -1,1 +1,101 @@
 /* specialExercises.wxss */
+.time-area {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0rpx;
+  z-index: 2;
+}
+
+.used-time, .progress {
+  color: #34A952;
+  width: 100%;
+  font-size: 28rpx;
+}
+
+.used-time {
+  position: absolute;
+  text-align: center;
+}
+
+.progress {
+  text-align: right;
+  margin: 32rpx;
+}
+
+.title-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #FFFFFF;
+  margin:92rpx 0;
+}
+
+.title-name, .icon {
+  margin: 32rpx;
+}
+
+.option-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.option-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.option-text {
+  width: 100%;
+  margin: 32rpx 32rpx 32rpx 0;
+  white-space: normal;
+}
+
+.center-concept {
+  position: fixed;
+  bottom: 0rpx;
+  z-index: 1;
+  width: 100%;
+  height: 92rpx;
+  background-color: #FFFFFF;
+}
+
+.control-area {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+}
+
+.btn-prev, .btn-next {
+  text-align: center;
+  padding: 32rpx;
+  background-color: #4285F5;
+  color: #FFFFFF;
+  font-size: 28rpx;
+}
+
+.btn-hover {
+  background-color: rgba(66, 133, 245, 0.7)
+}
+
+.btn-prev {
+  width: 100%;
+}
+
+.btn-next {
+  width: 100%;
+}

@@ -8,7 +8,8 @@
     "pages/punchClock/punchClock",
     "pages/read/read",
     "pages/exercisePage/exercisePage",
-    "pages/specialExercises/specialExercises"
+    "pages/specialExercises/specialExercises",
+    "pages/editAccount/editAccount"
   ],
   "window": {
     "backgroundTextStyle": "light",

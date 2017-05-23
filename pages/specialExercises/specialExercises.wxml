@@ -1,2 +1,34 @@
 <!--specialExercises.wxml-->
 <!--专题练习页面,可以选择试题难度等信息,-->
+<view class="container">
+  <view class="time-area">
+    <text class="used-time">已用:00:10:23</text>
+    <text class="progress">进度:5/45</text>
+  </view>
+  <view class="title-area">
+    <text class="title-name">(单选题)1+1等于多少(5分)</text>
+    <view class="option-group">
+      <view class="option-item">
+        <image src="../../images/aNormal.png" class="icon"></image>
+        <text class="option-text">你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+      </view>
+      <view class="option-item">
+        <image src="../../images/bNormal.png" class="icon"></image>
+        <text class="option-text">你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+      </view>
+      <view class="option-item">
+        <image src="../../images/cNormal.png" class="icon"></image>
+        <text class="option-text">你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+      </view>
+      <view class="option-item">
+        <image src="../../images/dNormal.png" class="icon"></image>
+        <text class="option-text">你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好</text>
+      </view>
+    </view>
+  </view>
+  <view class="center-concept"></view>
+  <view class="control-area">
+    <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">上一题</view>
+    <view class="btn-next" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">下一题</view>
+  </view>
+</view>

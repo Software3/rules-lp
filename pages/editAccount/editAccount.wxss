@@ -1,0 +1,18 @@
+/* editAccount.wxss */
+@import "../../utils/btnFunc.wxss";
+
+.icon {
+  margin: 32rpx 32rpx 32rpx 0;
+}
+
+.info-title {
+  width: 100%;
+  font-size: 36rpx;
+  margin: 32rpx;
+}
+
+.info-content {
+  font-size: 32rpx;
+  white-space: nowrap;
+  margin: 32rpx;
+}
