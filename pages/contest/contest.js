@@ -5,9 +5,26 @@ Page({
    * 页面的初始数据
    */
   data: {
-    funcTitle:["报名竞赛","进入竞赛"]
+    funcTitle: ["进入竞赛", "报名竞赛"]
   },
-
+  // 事件处理函数，开始竞赛
+  doContest: function(event) {
+    wx.navigateTo({
+      url: '../../pages/contestPage/contestPage',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  // 事件处理函数，报名竞赛
+  registContest: function(event) {
+    wx.navigateTo({
+      url: '../../pages/registContest/registContest',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

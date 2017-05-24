@@ -1,7 +1,7 @@
 <!--test.wxml-->
 <view class="container">
   <view class="test-funcs">
-    <view class="btn-func" bindtap="doWrong" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
+    <view class="btn-func" bindtap="doExam" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
       <image src="../../images/doExam.png" class="icon"></image>
       <text class="btn-text">{{funcTitle[0]}}</text>
       <image src="../../images/rightArrow.png" class="icon"></image>

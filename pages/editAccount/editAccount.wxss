@@ -11,6 +11,15 @@
   margin: 32rpx;
 }
 
+.info-number {
+  font-size: 32rpx;
+  white-space: nowrap;
+  margin: 32rpx;
+  min-width: 300rpx;
+  max-width: 450rpx;
+  text-align: right;
+}
+
 .info-content {
   font-size: 32rpx;
   white-space: nowrap;

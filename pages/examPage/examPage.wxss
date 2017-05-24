@@ -1,4 +1,4 @@
-/* exercisePage.wxss */
+/* examPage.wxss */
 .time-area {
   width: 100%;
   display: flex;
@@ -10,18 +10,14 @@
   z-index: 2;
 }
 
-.used-time, .progress {
+.start-time, .left-time, .progress {
   color: #34A952;
   width: 100%;
   font-size: 28rpx;
-}
-
-.used-time {
-  position: absolute;
   text-align: center;
 }
 
-.progress {
+.start-time, .progress {
   text-align: right;
   margin: 32rpx;
 }

@@ -9,7 +9,10 @@
     "pages/read/read",
     "pages/exercisePage/exercisePage",
     "pages/specialExercises/specialExercises",
-    "pages/editAccount/editAccount"
+    "pages/editAccount/editAccount",
+    "pages/examPage/examPage",
+    "pages/registContest/registContest",
+    "pages/contestPage/contestPage"
   ],
   "window": {
     "backgroundTextStyle": "light",

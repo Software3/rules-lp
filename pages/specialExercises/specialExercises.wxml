@@ -26,7 +26,6 @@
       </view>
     </view>
   </view>
-  <view class="center-concept"></view>
   <view class="control-area">
     <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">上一题</view>
     <view class="btn-next" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">下一题</view>

@@ -7,7 +7,15 @@ Page({
   data: {
     funcTitle:["进入考试"]
   },
-
+  // 事件驱动函数，开始考试
+  doExam: function (event) {
+    wx.navigateTo({
+      url: '../../pages/examPage/examPage',
+      success: function (res) { },
+      fail: function (res) { },
+      complete: function (res) { },
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

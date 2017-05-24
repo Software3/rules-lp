@@ -19,7 +19,12 @@ Page({
   },
   //事件处理函数，错题练习
   doWrong: function (event) {
-
+    wx.navigateTo({
+      url: '../../pages/exercisePage/exercisePage',
+      success: function(res) {},
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
   //事件处理函数，查看成绩
   viewGrade: function (event) {

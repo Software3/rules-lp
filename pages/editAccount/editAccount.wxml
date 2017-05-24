@@ -2,32 +2,32 @@
 <view class="container">
   <view class="btn-func" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">学号</text>
-    <input class="info-content" value="3903150326" placeholder="请输入学号"/>
+    <text class="info-number">{{num}}</text>
     <image src="../../images/rightArrow.png" class="icon"></image>
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">姓名</text>
-    <text class="info-content">姬永涛</text>
+    <text class="info-content">{{name}}</text>
     <image src="" class="icon"></image>
   </view>
   <view class="btn-func" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70" bindtap="selectSex">
     <text class="info-title">性别</text>
-    <text class="info-content">男</text>
-    <image src="../../images/rightArrow.png" class="icon"></image>
+    <text class="info-content">{{sex}}</text>
+    <image src="" class="icon"></image>
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">学校</text>
-    <text class="info-content">中南大学</text>
+    <text class="info-content">{{school}}</text>
     <image src="" class="icon"></image>
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">学院</text>
-    <text class="info-content">软件学院</text>
+    <text class="info-content">{{college}}</text>
     <image src="" class="icon"></image>
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">班级</text>
-    <text class="info-content">工程试验班(软件)1503</text>
+    <text class="info-content">{{classname}}</text>
     <image src="" class="icon"></image>
   </view>
 </view>

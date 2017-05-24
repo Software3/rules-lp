@@ -1,7 +1,8 @@
-<!--exercisePage.wxml-->
+<!--contestPage.wxml-->
 <view class="container">
   <view class="time-area">
-    <text class="used-time">已用:00:10:23</text>
+    <text class="start-time">开始:23:03:00</text>
+    <text class="left-time">剩余:00:50:23</text>
     <text class="progress">进度:5/45</text>
   </view>
   <view class="title-area">
@@ -30,4 +31,3 @@
     <view class="btn-next" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">下一题</view>
   </view>
 </view>
-
