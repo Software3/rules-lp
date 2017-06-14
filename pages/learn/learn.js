@@ -6,7 +6,7 @@ Page({
    */
   data: {
     imageUrls:[
-'http://img02.tooopen.com/images/20150928/tooopen_sy_143912755726.jpg',
+'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
 'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
 'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
     ],
@@ -32,7 +32,7 @@ Page({
    * 事件处理函数--打卡
    */
   gotoClock: function(event) {
-    wx:wx.navigateTo({
+    wx.navigateTo({
       url: '../punchClock/punchClock',
       success: function(res) {},
       fail: function(res) {},
