@@ -140,8 +140,18 @@ Page({
                 method: 'post',
                 dataType: '',
                 success: function(res) {
+                  // 将所做到页数存储到本地
                   var titlePage = wx.getStorageSync('titlePage') || 1;
-                  wx.setStorageSync("titlePage", ++titlePage);      
+                  wx.setStorageSync('titlePage', ++titlePage);
+                  // 更新本地学习记录，时间，题目数
+                  var todayMinutes = wx.getStorageSync('todayMinutes');                  var todayTitleNum = wx.getStorageSync('todayTitleNum');
+                  todayMinutes = todayMinutes + parseInt(that.data.hour) * 60 + parseInt(that.data.minute) + parseInt(that.data.second) / 60;
+                  todayTitleNum = todayTitleNum + that.data.size;
+                  wx.setStorageSync('todayMinutes', todayMinutes);
+                  wx.setStorageSync('todayTitleNum', todayTitleNum);                     // 页面重定向至结果页面
+                  wx.redirectTo({
+                    url: '../practiceResult/practiceResult?result=1',
+                  })
                 },
                 fail: function(res) {},
                 complete: function(res) {},

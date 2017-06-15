@@ -12,7 +12,8 @@
     "pages/editAccount/editAccount",
     "pages/examPage/examPage",
     "pages/registContest/registContest",
-    "pages/contestPage/contestPage"
+    "pages/contestPage/contestPage",
+    "pages/practiceResult/practiceResult"
   ],
   "window": {
     "backgroundTextStyle": "light",
