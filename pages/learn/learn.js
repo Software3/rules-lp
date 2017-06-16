@@ -82,7 +82,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var todayMinutes = wx.getStorageSync('todayMinutes') || 0; 
+    var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
+    console.log(todayMinutes + "***" + todayTitleNum);
+    var that = this;
+    var values = [todayTitleNum, todayMinutes, 0];
+    var infoObjArray = that.data.infoObjArray;
+    for(var i = 0;i < infoObjArray.length;i++) {
+      infoObjArray[i].count = Math.round(values[i]);
+    }
+    that.setData({
+      infoObjArray: infoObjArray,
+    })
   },
 
   /**

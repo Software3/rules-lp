@@ -14,12 +14,9 @@ Page({
     })
   },
 
-  doWrongTitle: function (event) {
-    wx.redirectTo({
-      url: '../exercisePage/exercisePage?method=dowrong',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
+  doFinish: function (event) {
+    wx.navigateBack({
+      delta: 1,
     })
   }
 })

@@ -14,8 +14,8 @@
     </view>
 
     <view class="form-area">
-      <textarea placeholder="{{placeholder}}" class="textarea" placeholder-class="text-placeholder" maxlength="140"/>
-      <button type="primary" class="btn-primary">{{gotoClock}}</button>
-      <button type="default">{{waitClock}}</button>
+      <textarea placeholder="{{placeholder}}" class="textarea" placeholder-class="text-placeholder" maxlength="140" bindinput='keyComment'/>
+      <button type="primary" class="btn-primary" bindtap="doClock">{{gotoClock}}</button>
+      <button type="default" bindtap="doBack">{{waitClock}}</button>
     </view>
 </view>

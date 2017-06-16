@@ -3,6 +3,8 @@
   <icon type="success" size="70" color="#4285F5"/>
   <text>提交成功</text>
   <text>您已成功提交该组试题，可查看错题进行练习</text>
-  <button type="primary" bindtap="doNextTitleList">继续下一组</button>
-  <button type="default" bindtap="doWrongTitle">查看错题</button>
+  <view class="">
+    <button type="primary" bindtap="doNextTitleList">继续下一组</button>
+    <button type="default" bindtap="doFinish">已完成</button>
+  </view>
 </view>
