@@ -122,7 +122,7 @@ Page({
               var data = that.formatAnswer(that.data.titleList, that.data.answer);
               wx.request({
                 url: 'https://www.ltaoj.cn/rules/title/submit',
-                data: {
+                data: JSON.stringify({
                   'account': {
                     'studentId': 3903150326,
                     'username': '李涛江',
@@ -133,13 +133,14 @@ Page({
                     'school': null,
                   },
                   'titleList': data,
-                },
+                }),
                 header: {
                   'content-type': 'application/json',
                 },
                 method: 'post',
-                dataType: '',
+                dataType: 'json',
                 success: function(res) {
+                  console.log(res.data);
                   // 将所做到页数存储到本地
                   var titlePage = wx.getStorageSync('titlePage') || 1;
                   wx.setStorageSync('titlePage', ++titlePage);
@@ -233,8 +234,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-    var that = this;
-    that.data = null;
+
   },
 
   /**
@@ -276,7 +276,8 @@ Page({
    * 工具函数，如果时间数值为个位数，则前边加0
    */
   checkTime: function (i) {
-    if (i < 10) i = "0" + i.toString();
+    if(i == undefined) i = 0;
+    if ( i < 10) i = "0" + i.toString();
     return i;
   },
   /**

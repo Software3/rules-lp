@@ -1,7 +1,7 @@
 <!--learn.wxml-->
 <scroll-view>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
-    <block wx:for="{{imageUrls}}">
+    <block wx:for="{{imageUrls}}" wx:key="url">
       <swiper-item>
           <image src="{{item}}" class="slide-image" mode="aspectFill"></image>
       </swiper-item>
@@ -20,7 +20,7 @@
         <text class="text-title">{{title}}</text>
       </view>
     </template>
-    <view wx:for="{{infoObjArray}}" class="item-info-wrap">
+    <view wx:for="{{infoObjArray}}" class="item-info-wrap" wx:key="info">
       <template is="item-info" data="{{...item}}"></template>
     </view>
   </view>
@@ -31,7 +31,7 @@
     </view>
   </template>
   <view class="action-wrp">
-    <view wx:for="{{btnTitleArray}}" class="flex-wrp">
+    <view wx:for="{{btnTitleArray}}" class="flex-wrp" wx:key="btnText">
       <template is="flex-button" data="{{...item}}"></template>
     </view>
   </view>

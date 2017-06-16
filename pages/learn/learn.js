@@ -84,7 +84,6 @@ Page({
   onShow: function () {
     var todayMinutes = wx.getStorageSync('todayMinutes') || 0; 
     var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
-    console.log(todayMinutes + "***" + todayTitleNum);
     var that = this;
     var values = [todayTitleNum, todayMinutes, 0];
     var infoObjArray = that.data.infoObjArray;

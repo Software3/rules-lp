@@ -8,7 +8,7 @@
     </template>
     <text class="item-title">{{todayHolder}}</text>
     <view class="item-info-wrap">
-      <block wx:for="{{infoObjArray}}" >
+      <block wx:for="{{infoObjArray}}" wx:key="info">
         <template is="item-info" data="{{...item}}"></template>
       </block>
     </view>
