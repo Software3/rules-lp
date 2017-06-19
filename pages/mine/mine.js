@@ -4,14 +4,23 @@ var app = getApp()
 Page({
   data: {
     motto: 'Hello World',
-    userInfo: {}
+    userInfo: {},
   },
   //事件处理函数
   bindViewTap: function (event) {
+    var that = this;
+    var userInfo = that.data.userInfo;
+    console.log(userInfo);
+    if (userInfo == undefined || userInfo.username == undefined) return;
     wx.navigateTo({
       // url: '../logs/logs'
-      url: '../editAccount/editAccount'
+      url: '../editAccount/editAccount?studentId=' +  userInfo.studentId + '&username=' + userInfo.username +
+      '&sex=' + (userInfo.sex == 1 ? '男' : '女') +
+      '&school=' + userInfo.school +
+      '&college=' + userInfo.college +
+      '&clazz=' + userInfo.clazz
     })
+    
   },
   //事件处理函数，查看错题
   viewWrong: function (event) {
@@ -36,19 +45,22 @@ Page({
   },
   //事件处理函数，登录
   doLogin: function (event) {
-
-  },
-  onLoad: function () {
-    console.log('onLoad')
-    var that = this
-    //调用应用实例的方法获取全局数据
-    app.getUserInfo(function (userInfo) {
-      //更新数据
-      that.setData({
-        userInfo: userInfo
-      })
+    wx.navigateTo({
+      url: '../login/login',
     })
   },
+  /**
+   * 声明周期函数，onShow
+   */
+  onShow: function () {
+    if (userInfo != null && !userInfo.equals({})) return;
+    var userInfo = wx.getStorageSync('userInfo') || {};
+    var that = this;
+    that.setData({
+      userInfo: userInfo,
+    })
+  },
+
   onShareAppMessage: function () {
     return {
       title: '自定义分享标题',

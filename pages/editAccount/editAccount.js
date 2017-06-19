@@ -5,12 +5,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    num:"3903150326",
-    name: "姬永涛",
-    sex: "男",
-    school: "中南大学",
-    college: "软件学院",
-    classname: "工程试验班(软件)1503"
+    studentId:'',
+    username: '',
+    sex: '',
+    school: '',
+    college: '',
+    clazz: '',
   },
   // 事件处理函数，选择性别
   selectSex: function(event) {
@@ -20,7 +20,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var that = this;
+    that.setData({
+      studentId: options.studentId,
+      username: options.username,
+      sex: options.sex,
+      school: options.school,
+      college: options.college,
+      clazz: options.clazz
+    })
   },
 
   /**

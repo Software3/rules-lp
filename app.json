@@ -13,7 +13,8 @@
     "pages/examPage/examPage",
     "pages/registContest/registContest",
     "pages/contestPage/contestPage",
-    "pages/practiceResult/practiceResult"
+    "pages/practiceResult/practiceResult",
+    "pages/login/login"
   ],
   "window": {
     "backgroundTextStyle": "light",

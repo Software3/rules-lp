@@ -2,12 +2,12 @@
 <view class="container">
   <view class="btn-func" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">学号</text>
-    <text class="info-number">{{num}}</text>
+    <text class="info-number">{{studentId}}</text>
     <image src="../../images/rightArrow.png" class="icon"></image>
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">姓名</text>
-    <text class="info-content">{{name}}</text>
+    <text class="info-content">{{username}}</text>
     <image src="" class="icon"></image>
   </view>
   <view class="btn-func" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70" bindtap="selectSex">
@@ -27,7 +27,7 @@
   </view>
   <view class="btn-func" hover-start-time="20" hover-stay-time="70">
     <text class="info-title">班级</text>
-    <text class="info-content">{{classname}}</text>
+    <text class="info-content">{{clazz}}</text>
     <image src="" class="icon"></image>
   </view>
 </view>

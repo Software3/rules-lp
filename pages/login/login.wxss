@@ -1,0 +1,14 @@
+/* login.wxss */
+.text-placeholder {
+  font-size: 28rpx;
+}
+
+.textarea {
+  font-size: 28rpx;
+  margin:0rpx 0rpx 100rpx 0rpx;
+  background-color: #FFFFFF;
+}
+
+.btn-primary {
+  margin: 0rpx  0rpx 35rpx 0rpx;
+}

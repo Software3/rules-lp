@@ -145,7 +145,9 @@ Page({
                   var titlePage = wx.getStorageSync('titlePage') || 1;
                   wx.setStorageSync('titlePage', ++titlePage);
                   // 更新本地学习记录，时间，题目数
-                  var todayMinutes = wx.getStorageSync('todayMinutes');                  var todayTitleNum = wx.getStorageSync('todayTitleNum');
+                  var todayMinutes = wx.getStorageSync('todayMinutes') || 0;                  
+                  var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
+                  console.log(todayTitleNum + " " + todayMinutes);
                   todayMinutes = todayMinutes + parseInt(that.data.hour) * 60 + parseInt(that.data.minute) + parseInt(that.data.second) / 60;
                   todayTitleNum = todayTitleNum + that.data.size;
                   wx.setStorageSync('todayMinutes', todayMinutes);

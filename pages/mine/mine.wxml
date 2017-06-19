@@ -1,10 +1,10 @@
 <!--mine.wxml-->
 <view class="container">
   <view  bindtap="bindViewTap" class="userinfo">
-    <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
-    <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    <image class="userinfo-avatar" src="../../images/avatar.jpg" background-size="cover"></image>
+    <text class="userinfo-nickname">{{userInfo.username}}</text>
   </view>
-  <view wx:if="{{userInfo.nickName != null}}" class="userfuncs">
+  <view wx:if="{{userInfo.username != null}}" class="userfuncs">
     <view class="btn-func" bindtap="viewWrong" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
       <image src="../../images/viewWrongs.png" class="icon"></image>
       <text class="btn-text">我的错题</text>
@@ -27,7 +27,7 @@
     </view>
   </view>
 
-  <view wx:if="{{userInfo.nickName == null}}" class="userfuncs">
+  <view wx:if="{{userInfo.username == null}}" class="userfuncs">
     <view class="btn-func" bindtap="doLogin" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
       <image src="../../images/doLogin.png" class="icon"></image>
       <text class="btn-text">登陆</text>
