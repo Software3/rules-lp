@@ -8,26 +8,26 @@
   <view class="title-area">
     <text class="title-name">(单选题){{title.name}}({{title.score}}分)</text>
     <view class="option-group">
-      <view class="option-item">
-        <image src="../../images/aNormal.png" class="icon"></image>
-        <text class="option-text">1</text>
+      <view id="1" class="option-item" bindtap="doSelect">
+        <image src="{{answer[index]==1?'../../images/aPressed.png':'../../images/aNormal.png'}}" class="icon"></image>
+        <text class="option-text">{{title.options[0].content}}</text>
       </view>
-      <view class="option-item">
-        <image src="../../images/bNormal.png" class="icon"></image>
-        <text class="option-text">2</text>
+      <view id="2" class="option-item" bindtap="doSelect">
+        <image src="{{answer[index]==2?'../../images/bPressed.png':'../../images/bNormal.png'}}" class="icon"></image>
+        <text class="option-text">{{title.options[1].content}}</text>
       </view>
-      <view class="option-item">
-        <image src="../../images/cNormal.png" class="icon"></image>
-        <text class="option-text">3</text>
+      <view id="3" class="option-item" bindtap="doSelect">
+        <image src="{{answer[index]==3?'../../images/cPressed.png':'../../images/cNormal.png'}}" class="icon"></image>
+        <text class="option-text">{{title.options[2].content}}</text>
       </view>
-      <view class="option-item">
-        <image src="../../images/dNormal.png" class="icon"></image>
-        <text class="option-text">4</text>
+      <view id="4" class="option-item" bindtap="doSelect">
+        <image src="{{answer[index]==4?'../../images/dPressed.png':'../../images/dNormal.png'}}" class="icon"></image>
+        <text class="option-text">{{title.options[3].content}}</text>
       </view>
     </view>
   </view>
   <view class="control-area">
-    <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">上一题</view>
-    <view class="btn-next" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70">下一题</view>
+    <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doPrevTitle">{{prevBtnText}}</view>
+    <view class="btn-next" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doNextTitle">{{nextBtnText}}</view>
   </view>
 </view>

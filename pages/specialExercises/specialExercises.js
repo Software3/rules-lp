@@ -90,7 +90,6 @@ Page({
     var that = this;
     var index = that.data.index;
     if(index == 0) return;
-    var that = this;
     var title = that.data.titleList[--index];
     that.setData({
       title: title,

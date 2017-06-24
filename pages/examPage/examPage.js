@@ -8,6 +8,7 @@ Page({
   data: {
     startTime: 0,
     duration: 0,
+    testRecord: {},
     fStartTime: '',
     leftTime: '',
     titleList: [],
@@ -65,14 +66,16 @@ Page({
           method: 'post',
           dataType: 'json',
           success: function (res) {
-            var startTime = res.data.startTime;
+            var testRecord = res.data;
+            var startTime = testRecord.startTime;
             var duration = that.data.duration;
             var fStartTime = util.getTime(new Date(startTime));
-            // json数组[day,hour,minute,second]
-            var timeDiff = util.timeDiff(new Date(), new Date(startTime + duration * 60 * 1000 - 8 * 60 * 60 * 1000));
+            // 字符串HH:mm:ss
+            var timeDiff = util.timeDiff(new Date(), new Date(startTime + duration * 60 * 1000));
             that.setData({
               fStartTime: fStartTime,
               leftTime: timeDiff,
+              testRecord: testRecord,
             })
             that.startTimer(that.data.leftTime);
           },
@@ -80,9 +83,137 @@ Page({
           complete: function (res) { },
         })
       },
-      fail: function(res) {},
-      complete: function(res) {},
+      fail: function(res) {
+        console.log('fail')
+      },
+      complete: function(res) {
+        console.log('complete')
+      },
     })
+  },
+
+  /**
+   * 事件函数，选择
+   */
+  doSelect: function (event) {
+    var that = this;
+    var answer = that.data.answer;
+    var index = that.data.index;
+    var id = parseInt(event.currentTarget.id);
+    switch (id) {
+      case 1:
+        answer[index] = 1;
+        break;
+      case 2:
+        answer[index] = 2;
+        break;
+      case 3:
+        answer[index] = 3;
+        break;
+      case 4:
+        answer[index] = 4;
+        break;
+    }
+    that.setData({
+      answer: answer,
+    })
+  },
+
+  /**
+   * 事件函数，上一题
+   */
+  doPrevTitle: function (event) {
+    var that = this;
+    var index = that.data.index;
+    if (index == 0) return;
+    var title = that.data.titleList[--index];
+    that.setData({
+      title: title,
+      index: index,
+    })
+  },
+
+  /**
+   * 事件函数，下一题
+   */
+  doNextTitle: function (event) {
+    var that = this;
+    var index = that.data.index;
+    if (index >= that.data.size - 1) {
+      var isFinish = that.checkAnswer(that.data.answer, that.data.size);
+      // 完成了全部答案
+      if (isFinish) {
+        // 标识用户是否取消了模态框
+        var isCancel = false;
+        wx.showModal({
+          title: '温馨提示',
+          content: '你已完成考试内容是否提交？',
+          showCancel: true,
+          cancelText: '取消',
+          cancelColor: '',
+          confirmText: '确定',
+          confirmColor: '#4285F5',
+          success: function(res) {
+            // 用户点击了模态框的确认按钮
+            if (res.cancel) {
+              isCancel = true;
+            }
+          },
+          fail: function(res) {},
+          complete: function(res) {},
+        })
+      } else {
+        wx.showModal({
+          title: '温馨提示',
+          content: '你还有题目未做完确定要提交吗',
+          showCancel: true,
+          cancelText: '取消',
+          cancelColor: '',
+          confirmText: '确定',
+          confirmColor: '#4285F5',
+          success: function(res) {
+            if (res.cancel) {
+              isCancel = true;
+            }
+          },
+          fail: function(res) {},
+          complete: function(res) {},
+        })
+      }
+
+      if (!isCancel){
+        var data = [];
+        var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
+        var testRecord = that.data.testRecord;
+        data[0] = titleList;
+        data[1] = testRecord;
+        console.log(JSON.stringify(data));
+        wx.request({
+          url: 'https://www.ltaoj.cn/rules/test/submitTest',
+          data: JSON.stringify(data),
+          header: {
+            'content-type': 'application/json',
+          },
+          method: 'post',
+          dataType: 'json',
+          success: function (res) {
+            console.log(res.data);
+          },
+          fail: function (res) {
+            console.log('failed');
+          },
+          complete: function (res) {
+            console.log('complete');
+          },
+        })
+      }
+    } else {
+      var title = that.data.titleList[++index];
+      that.setData({
+        title: title,
+        index: index,
+      })
+    }
   },
 
   /**
@@ -150,5 +281,32 @@ Page({
   formatNumber: function (n) {
     n = n.toString()
   return n[1] ? n : '0' + n
+  },
+
+    /**
+   * 工具函数，检查该组试题是否已经做完
+   */
+  checkAnswer: function (answer, size) {
+    if (answer.length < size) return false;
+    for (var i = 0; i < answer.length; i++) {
+      if (answer[i] == undefined) {
+        return false;
+      }
+    }
+    return true;
+  },
+
+  /**
+   * 工具函数，格式化上传数据
+   */
+  formatAnswer: function (titleList, answer) {
+    for (var i = 0; i < titleList.length; i++) {
+      for (var j = 0; j < titleList[i].options.length; j++) {
+        titleList[i].options[j].checked = 0;
+      }
+      if (answer[i] == undefined) continue;
+      titleList[i].options[answer[i] - 1].checked = 1;
+    }
+    return titleList;
   }
 })

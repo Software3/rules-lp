@@ -68,7 +68,6 @@ Page({
     var that = this;
     var index = that.data.index;
     if (index == 0) return;
-    var that = this;
     var title = that.data.wrongTList[--index];
     that.setData({
       title: title,
