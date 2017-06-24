@@ -74,6 +74,7 @@ Page({
               fStartTime: fStartTime,
               leftTime: timeDiff,
             })
+            that.startTimer(that.data.leftTime);
           },
           fail: function (res) { },
           complete: function (res) { },
@@ -111,25 +112,43 @@ Page({
   onUnload: function () {
   
   },
-
   /**
-   * 页面相关事件处理函数--监听用户下拉动作
+   * 启动定时器
    */
-  onPullDownRefresh: function () {
-  
+  startTimer: function (leftTime) {
+    var that = this;
+    var hour = parseInt(leftTime.split(':')[0]);
+    var minute = parseInt(leftTime.split(':')[1]);
+    var second = parseInt(leftTime.split(':')[2]);
+
+    second = second - 1;
+    if (second == -1) {
+      second = 59;
+      minute = minute - 1;
+    }
+    if (minute == -1) {
+      minute = 59;
+      hour = hour - 1;
+    }
+    if (hour == -1) {
+      // 说明已经倒计时结束，应该关闭计时器并自动交卷
+      return;
+    }
+
+    // 渲染界面
+    var leftTime = [hour, minute, second].map(that.formatNumber).join(':');
+    that.setData({
+      leftTime: leftTime,
+    })
+    setTimeout(function () {
+      that.startTimer(that.data.leftTime);
+    }, 1000);
   },
-
   /**
-   * 页面上拉触底事件的处理函数
+   * 工具函数，将各位数字格式化
    */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
+  formatNumber: function (n) {
+    n = n.toString()
+  return n[1] ? n : '0' + n
   }
 })
