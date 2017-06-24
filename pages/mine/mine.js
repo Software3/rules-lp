@@ -10,7 +10,6 @@ Page({
   bindViewTap: function (event) {
     var that = this;
     var userInfo = that.data.userInfo;
-    console.log(userInfo);
     if (userInfo == undefined || userInfo.username == undefined) return;
     wx.navigateTo({
       // url: '../logs/logs'
@@ -30,9 +29,6 @@ Page({
   doWrong: function (event) {
     wx.navigateTo({
       url: '../../pages/exercisePage/exercisePage',
-      success: function(res) {},
-      fail: function(res) {},
-      complete: function(res) {},
     })
   },
   //事件处理函数，查看成绩

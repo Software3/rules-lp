@@ -6,5 +6,25 @@
       <text class="btn-text">{{funcTitle[0]}}</text>
       <image src="../../images/rightArrow.png" class="icon"></image>
     </view>
+
+    <view class="test-info">
+      <text>{{testInfo.name}}</text>
+      <view class="info-item">
+        <text class="key-text">开始日期:</text>
+        <text class="value-text">{{testInfo.startTime}}</text>
+      </view>
+      <view class="info-item">
+        <text class="key-text">截止日期:</text>
+        <text class="value-text">{{testInfo.endTime}}</text>
+      </view>
+      <view class="info-item">
+        <text class="key-text">考试时长:</text>
+        <text class="value-text">{{testInfo.duration}}分钟</text>
+      </view>
+      <view class="info-item">
+        <text class="key-text">适用范围:</text>
+        <text class="value-text">所有{{testInfo.grade}}级本科生</text>
+      </view>
+    </view>
   </view>
 </view>

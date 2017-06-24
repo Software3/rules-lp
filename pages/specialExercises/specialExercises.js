@@ -10,8 +10,8 @@ Page({
     second: 0,
     prevBtnText: '上一题',
     nextBtnText: '下一题',
-    titleList: null,
-    title: null,
+    titleList: [],
+    title: [],
     index: 0,
     size: 0,
     page: 1,
@@ -71,7 +71,6 @@ Page({
             complete: function(res) {},
           })
         }
-        wx.hideNavigationBarLoading();
       },
       fail: function (res) { 
         wx.navigateBack({
@@ -230,13 +229,6 @@ Page({
   onHide: function () {
     var that = this;
     clearTimeout(that.data.timer);
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
   },
 
   /**

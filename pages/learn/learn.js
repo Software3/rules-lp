@@ -1,4 +1,5 @@
 // learn.js
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -64,18 +65,18 @@ Page({
       
     })
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+    var date = util.getDate(new Date());
+    var week = util.getWeek(new Date());
+    var that = this;
+    that.setData({
+      date: date,
+      week: week,
+    })
   },
 
   /**

@@ -30,7 +30,6 @@ Page({
     json.duration = infoObjArray[1].count;
     json.comment = that.data.comment;
     json.clockDay = util.formatTime(new Date());
-    console.log(json.clockDay);
     wx.request({
       url: 'https://www.ltaoj.cn/rules/learn/clock',
       data: JSON.stringify(json),
@@ -38,7 +37,6 @@ Page({
       method: 'post',
       dataType: 'json',
       success: function(res) {
-        console.log(res);
         wx.navigateBack({
           delta: 1,
         })
