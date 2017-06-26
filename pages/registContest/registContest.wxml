@@ -1,1 +1,7 @@
 <!--registContest.wxml-->
+<view class="container">
+  <view class="contestItem{{contestInfo.testId}}">
+    <text class="text-name">{{contestInfo.name}}</text>
+    
+  </view>
+</view>

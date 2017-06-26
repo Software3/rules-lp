@@ -28,21 +28,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this;
-    wx.request({
-      url: 'https://www.ltaoj.cn/rules/test/getTestInfo',
-      method: 'get',
-      success: function(res) {
-        console.log(res.data);
-        res.data.startTime = util.getDateTime(new Date(res.data.startTime));
-        res.data.endTime = util.getDateTime(new Date(res.data.endTime));
-        that.setData({
-          testInfo: res.data,
-        })
-      },
-      fail: function(res) {},
-      complete: function(res) {},
-    })
+    
   },
 
   /**
@@ -56,7 +42,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this;
+    if (that.data.testInfo.name == null) {
+      wx.request({
+        url: 'https://www.ltaoj.cn/rules/test/getTestInfo',
+        method: 'get',
+        success: function (res) {
+          res.data.startTime = util.getDateTime(new Date(res.data.startTime));
+          res.data.endTime = util.getDateTime(new Date(res.data.endTime));
+          that.setData({
+            testInfo: res.data,
+          })
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    }
   },
 
   /**

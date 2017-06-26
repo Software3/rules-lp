@@ -118,6 +118,18 @@ Page({
           success: function(res) {
             if (res.confirm) {
               var data = that.formatAnswer(that.data.titleList, that.data.answer);
+              console.log(JSON.stringify({
+                'account': {
+                  'studentId': 3903150326,
+                  'username': '李涛江',
+                  'sex': 1,
+                  'clazz': null,
+                  'grade': null,
+                  'college': null,
+                  'school': null,
+                },
+                'titleList': data,
+              }));
               wx.request({
                 url: 'https://www.ltaoj.cn/rules/title/submit',
                 data: JSON.stringify({

@@ -4,3 +4,15 @@
   width: 100%;
   margin: 36rpx 0;
 }
+
+.test-container {
+  margin: 32rpx 32rpx 112rpx 32rpx;
+  box-shadow: 0 0 10px #b2b2b2; 
+}
+
+.test-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}

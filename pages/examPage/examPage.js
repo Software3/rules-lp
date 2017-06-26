@@ -155,8 +155,30 @@ Page({
           confirmColor: '#4285F5',
           success: function(res) {
             // 用户点击了模态框的确认按钮
-            if (res.cancel) {
-              isCancel = true;
+            if (res.confirm) {
+              var data = {};
+              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
+              var testRecord = that.data.testRecord;
+              data.testrecord = testRecord;
+              data.titleList = titleList;
+              wx.request({
+                url: 'https://www.ltaoj.cn/rules/test/submitTest',
+                data: JSON.stringify(data),
+                header: {
+                  'content-type': 'application/json',
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function (res) {
+                  console.log(res.data);
+                },
+                fail: function (res) {
+                  console.log('failed');
+                },
+                complete: function (res) {
+                  console.log('complete');
+                },
+              })
             }
           },
           fail: function(res) {},
@@ -172,39 +194,35 @@ Page({
           confirmText: '确定',
           confirmColor: '#4285F5',
           success: function(res) {
-            if (res.cancel) {
-              isCancel = true;
+            if (res.confirm) {
+              var data = {};
+              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
+              var testRecord = that.data.testRecord;
+              data.testrecord = testRecord;
+              data.titleList = titleList;
+              console.log(JSON.stringify(data));
+              wx.request({
+                url: 'https://www.ltaoj.cn/rules/test/submitTest',
+                data: JSON.stringify(data),
+                header: {
+                  'content-type': 'application/json',
+                },
+                method: 'post',
+                dataType: 'json',
+                success: function (res) {
+                  console.log(res.data);
+                },
+                fail: function (res) {
+                  console.log('failed');
+                },
+                complete: function (res) {
+                  console.log('complete');
+                },
+              })
             }
           },
           fail: function(res) {},
           complete: function(res) {},
-        })
-      }
-
-      if (!isCancel){
-        var data = [];
-        var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
-        var testRecord = that.data.testRecord;
-        data[0] = titleList;
-        data[1] = testRecord;
-        console.log(JSON.stringify(data));
-        wx.request({
-          url: 'https://www.ltaoj.cn/rules/test/submitTest',
-          data: JSON.stringify(data),
-          header: {
-            'content-type': 'application/json',
-          },
-          method: 'post',
-          dataType: 'json',
-          success: function (res) {
-            console.log(res.data);
-          },
-          fail: function (res) {
-            console.log('failed');
-          },
-          complete: function (res) {
-            console.log('complete');
-          },
         })
       }
     } else {

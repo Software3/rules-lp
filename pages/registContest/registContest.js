@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    contestInfo: {},
+    contestregistion: {},
   },
 
   /**
@@ -26,7 +27,39 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+    var that = this;
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/test/getContestInfo',
+      method: 'get',
+      success: function(res) {
+        console.log(res.data);
+        that.setData({
+          contestInfo: res.data,
+        })
+        var userInfo = wx.getStorageSync('userInfo');
+        var json = {};
+        json.studentId = userInfo.studentId;
+        json.testId = res.data.testId;
+        wx.request({
+          url: 'https://www.ltaoj.cn/rules/test/isRegisted',
+          data: JSON.stringify(json),
+          header: {
+            'content-type': 'application/json',
+          },
+          method: 'post',
+          dataType: 'json',
+          success: function(res) {
+            that.setData({
+              contestregistion: res.data,
+            })
+          },
+          fail: function(res) {},
+          complete: function(res) {},
+        })
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
 
   /**
