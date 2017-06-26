@@ -8,6 +8,9 @@
 .test-container {
   margin: 32rpx 32rpx 112rpx 32rpx;
   box-shadow: 0 0 10px #b2b2b2; 
+  border-radius: 20rpx;
+  border: 2rpx solid #eef2f7;
+  background-color: #ffffff;
 }
 
 .test-info {
@@ -15,4 +18,32 @@
   display: flex;
   flex-direction: column;
   align-items: center; 
+}
+
+.info-title {
+  width: 100%;
+  border-bottom: 2rpx solid #eef2f7;
+  text-align: center;
+}
+
+.text-title {
+  font-weight: 500;
+  font-size: 40rpx;
+  color: #4285F5;
+}
+
+.info-item {
+
+}
+
+.key-text {
+  font-weight: 400;
+  font-size: 28rpx;
+  color: #888888;
+}
+
+.value-text {
+  font-weight: 300;
+  font-size: 28rpx;
+  color: #888888;
 }
