@@ -1,0 +1,31 @@
+<!--testGrade.wxml-->
+<view class="container">
+  <view class="test-funcs">
+    <view class="test-container">
+      <view class="test-info">
+        <view class="info-title">
+          <text class="text-title">{{cardTitle}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">姓名:</text>
+          <text class="value-text">{{userInfo.username}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">学号:</text>
+          <text class="value-text">{{userInfo.studentId}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">用时:</text>
+          <text class="value-text">{{duration}}分钟</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">成绩:</text>
+          <text class="value-text">{{score}}分</text>
+        </view>
+        <view class="info-action">
+          <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doBack">{{btnText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

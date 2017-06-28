@@ -1,4 +1,4 @@
-/* test.wxss */
+/* testGrade.wxss */
 @import "../../utils/card.wxss";
 .test-funcs {
   width: 100%;

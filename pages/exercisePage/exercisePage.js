@@ -23,7 +23,7 @@ Page({
     var account = wx.getStorageSync('userInfo') || null;
     if (account == undefined) {
       wx.navigateTo({
-        url: '../login/login',
+        url: '../login/login?path=1',
       })
     }
     var json = {};

@@ -161,6 +161,7 @@ Page({
               var testRecord = that.data.testRecord;
               data.testrecord = testRecord;
               data.titleList = titleList;
+              wx.showNavigationBarLoading();
               wx.request({
                 url: 'https://www.ltaoj.cn/rules/test/submitTest',
                 data: JSON.stringify(data),
@@ -170,6 +171,11 @@ Page({
                 method: 'post',
                 dataType: 'json',
                 success: function (res) {
+                  var data = res.data;
+                  wx.hideNavigationBarLoading();
+                  wx.redirectTo({
+                    url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
+                  })
                   console.log(res.data);
                 },
                 fail: function (res) {

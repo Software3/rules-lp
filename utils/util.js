@@ -84,6 +84,11 @@ function timeDiff (t1, t2) {
   // return [day , formatNumber(hour), formatNumber(minute), formatNumber(second)]
   return [hour, minute, second].map(formatNumber).join(':')
 }
+
+function getDiffMinute(t1_long, t2_long) {
+  return parseInt((t2_long - t1_long) / (1000 * 60)); 
+}
+
 function formatNumber(n) {
   n = n.toString()
   return n[1] ? n : '0' + n
@@ -96,4 +101,5 @@ module.exports = {
   getDateTime: getDateTime,
   getTime: getTime,
   timeDiff: timeDiff,
+  getDiffMinute: getDiffMinute,
 }

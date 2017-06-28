@@ -12,6 +12,7 @@ Page({
     account: '',
     password: '',
     loading: false,
+    path: 0,
   },
 
   /**
@@ -65,10 +66,17 @@ Page({
           })
           // 将返回的用户信息保存到本地
           wx.setStorageSync('userInfo', userInfo);
-          // 重定向到首页
-          wx.switchTab({
-            url: '../learn/learn',
-          })
+          var path = that.data.path;
+          if (path == 0) {
+            // 重定向到首页
+            wx.switchTab({
+              url: '../learn/learn',
+            })
+          }else {
+            wx.navigateBack({
+              delta: 1,
+            })
+          }
         } else {
           wx.showToast({
             title: '登录失败',
@@ -102,7 +110,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    var path = options.path;
+    if (path == undefined) return;
+    var that = this;
+    that.setData({
+      path: path,
+    })
   },
 
   /**
@@ -130,7 +143,7 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    
   },
 
   /**

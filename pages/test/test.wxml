@@ -23,7 +23,7 @@
           <text class="value-text">所有{{testInfo.grade}}级本科生</text>
         </view>
         <view class="info-action">
-          <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doExam">开始考试</view>
+          <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doExam">{{btnText}}</view>
         </view>
       </view>
     </view>
