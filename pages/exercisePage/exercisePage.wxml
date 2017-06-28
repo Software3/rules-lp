@@ -2,9 +2,9 @@
 <view class="container">
   <view class="time-area">
     <text class="used-time">已用:00:10:23</text>
-    <text class="progress">进度:{{index + 1}}/{{size}}</text>
+    <text class="progress">进度:{{size == 0 ? 0 : index + 1}}/{{size}}</text>
   </view>
-  <view class="title-area">
+  <view class="title-area" hidden="{{hasWrongTile == false}}">
     <text class="title-name">(单选题){{title.name}}({{title.score}}分)</text>
     <view class="option-group">
       <view id="1" class="option-item" bindtap="doSelect">
@@ -24,6 +24,9 @@
         <text class="option-text">{{title.options[3].content}}</text>
       </view>
     </view>
+  </view>
+  <view class="title-area" hidden="{{hasWrongTile == true}}">
+    <text class="text-tip">暂没有错题</text>
   </view>
   <view class="control-area">
     <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doPrevTitle">{{prevBtnText}}</view>

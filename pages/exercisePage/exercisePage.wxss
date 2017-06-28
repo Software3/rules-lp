@@ -62,6 +62,14 @@
   white-space: normal;
 }
 
+.text-tip {
+  position: absolute;
+  color: red;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50%;
+}
+
 .control-area {
   width: 100%;
   display: flex;
