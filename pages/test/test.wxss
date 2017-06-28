@@ -1,13 +1,12 @@
 /* test.wxss */
-@import "../../utils/btnFunc.wxss";
 .test-funcs {
   width: 100%;
   margin: 36rpx 0;
 }
 
 .test-container {
-  margin: 32rpx 32rpx 112rpx 32rpx;
-  box-shadow: 0 0 10px #b2b2b2; 
+  margin: 32rpx 32rpx 112rpx 32rpx; 
+  box-shadow: 0 0 10px #b2b2b2;
   border-radius: 20rpx;
   border: 2rpx solid #eef2f7;
   background-color: #ffffff;
@@ -20,10 +19,16 @@
   align-items: center; 
 }
 
-.info-title {
+.info-title, .info-action {
   width: 100%;
+  padding: 16rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-title {
   border-bottom: 2rpx solid #eef2f7;
-  text-align: center;
 }
 
 .text-title {
@@ -33,7 +38,11 @@
 }
 
 .info-item {
-
+  padding: 16rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-around;
 }
 
 .key-text {
@@ -46,4 +55,22 @@
   font-weight: 300;
   font-size: 28rpx;
   color: #888888;
+}
+
+.info-action {
+  border-top: 2rpx solid #eef2f7;
+}
+
+.btn-small {
+  width: 224rpx;
+  text-align: center;
+  padding: 32rpx;
+  background-color: #4285F5;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+}
+
+.btn-hover {
+  background-color: rgba(66, 133, 245, 0.7)
 }

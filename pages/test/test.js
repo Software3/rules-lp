@@ -7,7 +7,7 @@ Page({
    */
   data: {
     testInfo: {},
-    funcTitle:["进入考试"]
+    funcTitle:["进入考试"],
   },
   // 事件驱动函数，开始考试
   doExam: function (event) {
