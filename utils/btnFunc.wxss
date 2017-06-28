@@ -1,6 +1,7 @@
 .btn-func {
   width: 100%;
   height: 112rpx;
+  display: -webkit-flex;
   display: flex;
   flex-direction: row;
   align-items: center;

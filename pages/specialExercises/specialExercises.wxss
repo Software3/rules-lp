@@ -1,6 +1,7 @@
 /* specialExercises.wxss */
 .time-area {
   width: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -29,6 +30,7 @@
 .title-area {
   width: 100%;
   height: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
@@ -41,6 +43,7 @@
 
 .option-group {
   width: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: column;
 }
@@ -64,6 +67,7 @@
 
 .control-area {
   width: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: row;
   position: fixed;
