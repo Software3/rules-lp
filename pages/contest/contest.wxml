@@ -1,5 +1,35 @@
 <!--contest.wxml-->
 <view class="container">
+  <view class="test-funcs">
+    <view class="test-container">
+      <view class="test-info">
+        <view class="info-title">
+          <text class="text-title">{{contestInfo.name}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">开始日期:</text>
+          <text class="value-text">{{contestInfo.startTime}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">截止日期:</text>
+          <text class="value-text">{{contestInfo.endTime}}</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">考试时长:</text>
+          <text class="value-text">{{contestInfo.duration}}分钟</text>
+        </view>
+        <view class="info-item">
+          <text class="key-text">适用范围:</text>
+          <text class="value-text">所有{{contestInfo.grade}}级本科生</text>
+        </view>
+        <view class="info-action">
+          <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doAction">{{btnText}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+<!--<view class="container">
   <view class="contest-funcs">
     <view class="btn-func" bindtap="doContest" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
       <image src="../../images/doContest.png" class="icon"></image>
@@ -12,4 +42,4 @@
       <image src="../../images/rightArrow.png" class="icon"></image>
     </view>
   </view>
-</view>
+</view>-->

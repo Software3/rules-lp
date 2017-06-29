@@ -27,12 +27,12 @@ Page({
           that.setData({
             testInfo: res.data,
           })
+          that.checkExam();
         },
         fail: function (res) { },
         complete: function (res) { },
       })
     }
-    that.checkExam();
   },
 
   // 事件驱动函数，开始考试
@@ -83,15 +83,20 @@ Page({
         var startTime = data.startTime;
         var submitTime = data.submitTime;
         var btnText = '';
+        var clickable = false;
         if (startTime == undefined) {
-          btnText = '开始考试'
+          btnText = '开始考试';
+          clickable = true;
         } else if (submitTime == undefined) {
-          btnText = '继续考试'
+          btnText = '继续考试';
+          clickable = true;
         } else {
-          btnText = '重新考试'
+          btnText = '重新考试';
+          clickable = false;
         }
         that.setData({
           btnText: btnText,
+          clickable: clickable,
         })
       },
       fail: function (res) { },
