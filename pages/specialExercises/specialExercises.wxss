@@ -46,10 +46,12 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .option-item {
   width: 100%;
+  display: -webkit-flex;
   display: flex;
   flex-direction: row;
 }
