@@ -31,6 +31,7 @@
   font-weight: 500;
   font-size: 40rpx;
   color: #4285F5;
+  white-space: pre;
 }
 
 .info-item {

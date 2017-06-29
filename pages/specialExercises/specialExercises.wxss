@@ -46,7 +46,6 @@
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
 }
 
 .option-item {
@@ -64,7 +63,8 @@
 .option-text {
   width: 100%;
   margin: 32rpx 32rpx 32rpx 0;
-  white-space: normal;
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
 .control-area {
