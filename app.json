@@ -11,7 +11,6 @@
     "pages/specialExercises/specialExercises",
     "pages/editAccount/editAccount",
     "pages/examPage/examPage",
-    "pages/registContest/registContest",
     "pages/contestPage/contestPage",
     "pages/practiceResult/practiceResult",
     "pages/login/login",
