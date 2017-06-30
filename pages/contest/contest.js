@@ -21,20 +21,6 @@ Page({
   },
 
   /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
@@ -245,8 +231,17 @@ Page({
   },
   // 普通函数，开始竞赛
   doContest: function (event) {
+    var that = this;
+    var userInfo = wx.getStorageSync('userInfo') || undefined;
+    if (userInfo == undefined) {
+      that.toLogin();
+      return;
+    }
+    var studentId = userInfo.studentId;
+    var testId = that.data.contestInfo.testId;
+    var duration = that.data.contestInfo.duration;
     wx.navigateTo({
-      url: '../../pages/contestPage/contestPage',
+      url: '../../pages/contestPage/contestPage?studentId=' + studentId + '&testId=' + testId + '&duration=' + duration,
       success: function (res) { },
       fail: function (res) { },
       complete: function (res) { },
@@ -293,39 +288,4 @@ Page({
       url: '../login/login?path=1',
     })
   },
-  
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })
