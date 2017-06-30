@@ -6,11 +6,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    imageUrls:[
-'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-'http://img06.tooopen.com/images/20160818/tooopen_sy_175866434296.jpg',
-'http://img06.tooopen.com/images/20160818/tooopen_sy_175833047715.jpg'
-    ],
     indicatorDots:true,
     autoplay:true,
     interval:3000,
@@ -27,7 +22,10 @@ Page({
       { id: 0, title: '专题练习' }, 
       { id: 1, title: '阅读' }, 
       { id: 2, title: '错题练习' },
-    ]
+    ],
+    textNoticeList: [],
+    pictureNoticeList: [],
+    imgUrls: [],
   },
   /**
    * 事件处理函数--打卡
@@ -93,6 +91,66 @@ Page({
     }
     that.setData({
       infoObjArray: infoObjArray,
+    })
+    setTimeout(that.getPictureNotice, 300);
+    setTimeout(that.getTextNotice, 500);
+  },
+
+  /**
+   * 普通函数，请求文本通知
+   */
+  getTextNotice: function () {
+    var that = this;
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/notice/getAllTextNotice',
+      method: 'get',
+      dataType: 'text',
+      success: function(res) {
+        var textNoticeList = JSON.parse(res.data);
+        that.setData({
+          textNoticeList: textNoticeList,
+        });
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+
+  /**
+   * 普通函数，请求图片通知
+   */
+  getPictureNotice: function () {
+    var that = this;
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/notice/getPictureNotice',
+      method: 'get',
+      dataType: 'text',
+      success: function(res) {
+        var pictureNoticeList = JSON.parse(res.data);
+        that.setData({
+          pictureNoticeList: pictureNoticeList,
+        })
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+
+  /**
+   * 事件函数，查看通知详细内容
+   */
+  doNoticeDetail: function (event) {
+    var noticeId = parseInt(event.target.id);
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/notice/getNotice',
+      data: {noticeId: noticeId},
+      method: 'get',
+      dataType: 'text',
+      success: function(res) {
+        // to notice detail
+      },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 

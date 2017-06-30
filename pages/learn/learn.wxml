@@ -1,9 +1,9 @@
 <!--learn.wxml-->
 <scroll-view>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" circular="{{circular}}">
-    <block wx:for="{{imageUrls}}" wx:key="url">
+    <block wx:for="{{pictureNoticeList}}" wx:key="notice">
       <swiper-item>
-          <image src="{{item}}" class="slide-image" mode="aspectFill"></image>
+          <image id="{{item.noticeId}}" src="{{item.picture}}" class="slide-image" mode="aspectFill" bindtap="doNoticeDetail"></image>
       </swiper-item>
     </block>
   </swiper>
