@@ -25,21 +25,10 @@
         <view class="info-action">
           <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doAction">{{btnText}}</view>
         </view>
+        <view class="info-tip">
+          <text class="tip-text" hidden="{{!isShowTip}}">{{tipText}}</text>
+        </view>
       </view>
     </view>
   </view>
 </view>
-<!--<view class="container">
-  <view class="contest-funcs">
-    <view class="btn-func" bindtap="doContest" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
-      <image src="../../images/doContest.png" class="icon"></image>
-      <text class="btn-text">{{funcTitle[0]}}</text>
-      <image src="../../images/rightArrow.png" class="icon"></image>
-    </view>
-    <view class="btn-func" bindtap="registContest" hover-class="btn-func-hover" hover-start-time="20" hover-stay-time="70">
-      <image src="../../images/registContest.png" class="icon"></image>
-      <text class="btn-text">{{funcTitle[1]}}</text>
-      <image src="../../images/rightArrow.png" class="icon"></image>
-    </view>
-  </view>
-</view>-->

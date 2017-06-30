@@ -55,6 +55,12 @@
   color: #888888;
 }
 
+.tip-text {
+  font-weight: 400;
+  font-size: 24rpx;
+  color: red;
+}
+
 .info-action {
   border-top: 2rpx solid #eef2f7;
 }

@@ -10,12 +10,14 @@ Page({
    * 2表示执行继续竞赛
    * 3表示执行查看成绩
    * 4表示执行未开始提示
+   * 5表示执行竞赛结束提示
    */
   data: {
     contestInfo: {},
     btnText: '未登录',
-    clickable: true,
+    isShowTip: false,
     operation: 0,
+    tipText: '竞赛未开始，请留意竞赛开始时间',
   },
 
   /**
@@ -71,29 +73,104 @@ Page({
       return;
     }
     var json = {};
-    json.studentId = userInfo.studentId;
     json.testId = contestInfo.testId;
+    // 判断是否可报名竞赛
     wx.request({
-      url: 'https://www.ltaoj.cn/rules/test/isRegisted',
+      url: 'https://www.ltaoj.cn/rules/test/getContestTime',
       data: JSON.stringify(json),
       header: {
         'content-type': 'application/json',
       },
       method: 'post',
       dataType: 'json',
-      success: function (res) {
+      success: function(res) {
+        var result = res.data.result;
+        if(result == 'success') { // 在可报名时间段内
+          json = {};
+          json.studentId = userInfo.studentId;
+          json.testId = contestInfo.testId;
+          // 判断用户是否已报名
+          wx.request({
+            url: 'https://www.ltaoj.cn/rules/test/isRegisted',
+            data: JSON.stringify(json),
+            header: {
+              'content-type': 'application/json',
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function (res) {
+              var contestregistion = res.data;
+              var studentId = contestregistion.studentId;
+              var status = contestregistion.status;
+              var btnText = '';
+              var operation = 0;
+              // 没有竞赛报名记录
+              if (studentId == undefined || studentId == 0) {
+                btnText = '我要报名';
+                operation = 0;
+                that.setData({
+                  btnText: btnText,
+                  operation: operation,
+                  tipText: '',
+                  isShowTip: false,
+                })
+              } else {
+                that.checkAfterRegist();
+              }
+              console.log(res.data);
+            },
+            fail: function (res) { },
+            complete: function (res) { },
+          })
+        }else { // 不在可报名时间段内,提示竞赛结束或者执行查看成绩
+          var btnText = '竞赛已结束';
+          var operation = 5;
+          var tipText = '您已错过本次竞赛';
+          var isShowTip = true;
+          that.setData({
+            btnText: btnText,
+            operation: operation,
+            tipText: tipText,
+            isShowTip: isShowTip,
+          })
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  
+  /**
+   * 普通函数
+   */
+  checkAfterRegist: function () {
+    var that = this;
+    var studentId = wx.getStorageSync('userInfo').studentId;
+    var testId = that.data.contestInfo.testId;
+    var json = {};
+    json.studentId = studentId;
+    json.testId = testId;
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/test/getContestStatus',
+      data: JSON.stringify(json),
+      header: {
+        'content-type': 'application/json',
+      },
+      method: 'post',
+      dataType: 'json',
+      success: function(res) {
         var contestregistion = res.data;
         var studentId = contestregistion.studentId;
         var status = contestregistion.status;
         var btnText = '';
         var operation = 0;
-        // 没有竞赛报名记录
-        if (studentId == undefined || studentId == 0) {
-          btnText = '我要报名';
-          operation = 0;
-        } else if (status == 0) {
+        var tipText = '';
+        var isShowTip = false;
+        if (status == 0) {
           btnText = '未开始'
           operation = 4;
+          tipText = '竞赛未开始，请留意竞赛开始时间';
+          isShowTip = true;
         } else if (status == 1) {
           btnText = '开始竞赛'
           operation = 1;
@@ -101,15 +178,15 @@ Page({
           btnText = '查看成绩'
           operation = 3;
         }
-
         that.setData({
           btnText: btnText,
           operation: operation,
+          tipText: tipText,
+          isShowTip: isShowTip,
         })
-        console.log(res.data);
       },
-      fail: function (res) { },
-      complete: function (res) { },
+      fail: function(res) {},
+      complete: function(res) {},
     })
   },
 
@@ -129,11 +206,11 @@ Page({
     } else if (operation == 1) {
       that.doContest();
     } else if (operation == 2) {
-
+      // 继续考试
     } else if (operation == 3) {
-
-    } else if (operation == 4) {
-
+      that.doViewContestGrade();
+    } else if (operation == 4 || operation == 5) {
+      // do nothing,only show tipText
     }
   },
 
@@ -157,7 +234,10 @@ Page({
       dataType: 'json',
       success: function(res) {
         console.log(res.data);
-        that.onShow();
+        wx.showToast({
+          title: '报名成功',
+        })
+        that.checkAfterRegist();
       },
       fail: function(res) {},
       complete: function(res) {},
@@ -177,10 +257,43 @@ Page({
    * 普通函数，查看成绩
    */
   doViewContestGrade() {
-
+    var that = this;
+    var studentId = wx.getStorageSync('userInfo').studentId;
+    var testId = that.data.contestInfo.testId;
+    var json = {};
+    json.studentId = studentId;
+    json.testId = testId;
+    wx.showNavigationBarLoading();
+    wx.request({
+      url: 'https://www.ltaoj.cn/rules/test/testRecordInfo',
+      data: JSON.stringify(json),
+      header: {
+        'content-type': 'application/json',
+      },
+      method: 'post',
+      dataType: 'json',
+      success: function(res) {
+        console.log(res.data);
+        var data = res.data;
+        wx.hideNavigationBarLoading();
+        wx.redirectTo({
+          url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
+        })
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
   },
 
-
+  /**
+   * 普通函数，跳转登录界面
+   */
+  toLogin: function () {
+    wx.navigateTo({
+      url: '../login/login?path=1',
+    })
+  },
+  
   /**
    * 生命周期函数--监听页面隐藏
    */
