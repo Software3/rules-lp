@@ -106,7 +106,11 @@ Page({
       method: 'get',
       dataType: 'text',
       success: function(res) {
+        console.log(JSON.parse(res.data));
         var textNoticeList = JSON.parse(res.data);
+        for (var i = 0; i < textNoticeList.length; i++) {
+          textNoticeList[i].submitTime = util.getDate(new Date(textNoticeList[i].submitTime));
+        }
         that.setData({
           textNoticeList: textNoticeList,
         });

@@ -134,3 +134,64 @@ swiper-item image {
   top: 50%;
   transform: translateX(-50%);
 }
+
+.text-notice-wrap {
+  width: 100%;
+  flex: 1;
+  background-color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 16rpx 0rpx 0rpx  0rpx;
+}
+
+.notice-item {
+  height: 144rpx;
+  border: 2rpx solid #eef2f7;
+  padding: 0rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.item-top {
+  height: 64rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.item-bottom {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+
+.title-text {
+  font-size: 34rpx;
+  color: #000000;
+}
+
+.source-text {
+  font-size: 28rpx;
+  color: #888888;
+  margin-left: 16rpx;
+}
+
+.date-text {
+  font-size: 28rpx;
+  color: #B2B2B2;
+  flex: 1;
+  text-align: right;
+}
+
+.content-text {
+  font-size: 34rpx;
+  color: #353535;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
