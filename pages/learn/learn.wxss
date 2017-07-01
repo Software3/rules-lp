@@ -171,12 +171,10 @@ swiper-item image {
 .title-text {
   font-size: 34rpx;
   color: #000000;
-}
-
-.source-text {
-  font-size: 28rpx;
-  color: #888888;
-  margin-left: 16rpx;
+  width: 328rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .date-text {
