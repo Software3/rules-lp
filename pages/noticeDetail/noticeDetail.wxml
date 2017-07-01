@@ -1,0 +1,22 @@
+<!--noticeDetail.wxml-->
+<!--<view class="container">-->
+  <view class="artical-container">
+    <view class="artical">
+      <view class="artical-header">
+        <view class="header">
+          <text class="title-text">{{notice.title}}</text>
+        </view>
+        <view class="outline">
+          <text class="date-text">{{notice.submitTime}}</text>
+          <text class="source-text">{{notice.source}}</text>
+        </view>
+      </view>
+      <view class="artical-body">
+        <block wx:if="{{notice.picture != null}}">
+          <image src="{{notice.picture}}" mode="aspectFit" class="picture"></image>
+        </block>
+        <text class="content-text">{{notice.content}}</text>
+      </view>
+    </view>
+  </view>
+<!--</view>-->

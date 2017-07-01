@@ -37,7 +37,7 @@
   </view>
 
   <template name="text-notice">
-    <view id="{{id}}" class="notice-item" hover-class="flex-item-hover" hover-start-time="20" hover-stay-time="70">
+    <view id="{{noticeId}}" class="notice-item" hover-class="flex-item-hover" hover-start-time="20" hover-stay-time="70" bindtap="doNoticeDetail">
       <view class="item-top">
         <text class="title-text">{{title}}</text>
         <text class="source-text" hidden="{{source == null}}">{{source}}</text>

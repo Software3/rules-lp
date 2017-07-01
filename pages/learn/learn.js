@@ -106,7 +106,6 @@ Page({
       method: 'get',
       dataType: 'text',
       success: function(res) {
-        console.log(JSON.parse(res.data));
         var textNoticeList = JSON.parse(res.data);
         for (var i = 0; i < textNoticeList.length; i++) {
           textNoticeList[i].submitTime = util.getDate(new Date(textNoticeList[i].submitTime));
@@ -144,17 +143,9 @@ Page({
    * 事件函数，查看通知详细内容
    */
   doNoticeDetail: function (event) {
-    var noticeId = parseInt(event.target.id);
-    wx.request({
-      url: 'https://www.ltaoj.cn/rules/notice/getNotice',
-      data: {noticeId: noticeId},
-      method: 'get',
-      dataType: 'text',
-      success: function(res) {
-        // to notice detail
-      },
-      fail: function(res) {},
-      complete: function(res) {},
+    var noticeId = parseInt(event.currentTarget.id);
+    wx.navigateTo({
+      url: '../noticeDetail/noticeDetail?noticeId=' + noticeId,
     })
   },
 
