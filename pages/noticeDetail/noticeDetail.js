@@ -23,14 +23,15 @@ Page({
       dataType: 'text',
       success: function (res) {
         wx.hideNavigationBarLoading();
-        console.log(JSON.parse(res.data));
         var notice = that.parseNotice(JSON.parse(res.data));
         that.setData({
           notice: notice,
         })
       },
       fail: function (res) { },
-      complete: function (res) { },
+      complete: function (res) { 
+        wx.hideNavigationBarLoading();
+      },
     })
   },
 
