@@ -1,5 +1,6 @@
 // examPage.js
 var util = require('../../utils/util.js')
+var test = require('../../utils/test.js')
 Page({
 
   /**
@@ -17,6 +18,8 @@ Page({
     title: {},
     prevBtnText: '上一题',
     nextBtnText: '下一题',
+    paper: {},
+    startSign: [],
   },
   
   /**
@@ -43,18 +46,40 @@ Page({
       method: 'post',
       dataType: 'json',
       success: function(res) {
-        var titleList = res.data;
-        var size = titleList.length;
+        //*********数据*********
+        // 拿到paper对象后，需要得到各个题目的总数
+        // 并且要初始化某一类型题目的集合以及该集合的第一道题目
+        // 题目按照选择题，填空题，判断题，简答题，案例分析题
+        // 论述题的顺序进行遍历
+        //*********显示*********
+        // 每道题目前边要显示题目类型，后边有该题目分数
+        // 选择题目下方提供选项进行选择
+        // 填空题目下方提供多个单行文本框，大小和该填空题目需要的填空数目一致
+        // 其他简答类题目每个题目一个多行文本框
+        //*********提交操作*********
+        // 选择题、填空题、判断题均是将后台的集合的答案换成用户的答案
+        // 简答题、案例分析题、论述题每类答案格式化为一个字符串
+        // 最后各种类型的答案组装成一个对象SubmitPaper
+        // 在进行后台提交时需要将SubmitPaper和Testrecord
+        // 组装成RecordTitles对象
+        var paper = res.data;
+        var titleList = test.initList(paper)[0];
+        var titleType = test.initList(paper)[1];
+        var size = test.size(paper);
         if (size == 0 ) return;
         var title = titleList[0];
         var index = 0;
         var answer = new Array(size);
+        var startSign = test.startSign(paper);
         that.setData({
+          paper: paper,
           titleList: titleList,
           size: size,
           title: title,
           index: index,
           answer: answer,
+          titleType: titleType,
+          startSign: startSign,
         })
         // 请求testInfo获取时间，启动计时器
         wx.request({
@@ -126,7 +151,16 @@ Page({
     var that = this;
     var index = that.data.index;
     if (index == 0) return;
-    var title = that.data.titleList[--index];
+    var titleType = that.data.titleType;
+    var titleList = that.data.titleList;
+    if ((index-that.data.startSign[titleType]) == 0) {
+      [titleList, titleType] = test.prevList(that.data.paper, titleType);
+      that.setData({
+        titleList: titleList,
+        titleType: titleType,
+      })
+    }
+    var title = titleList[--index - that.data.startSign[titleType]];
     that.setData({
       title: title,
       index: index,
@@ -232,7 +266,17 @@ Page({
         })
       }
     } else {
-      var title = that.data.titleList[++index];
+      var titleType = that.data.titleType;
+      var titleList = that.data.titleList;
+      var title = {};
+      if ((index - that.data.startSign[titleType]) == (titleList.length - 1)){
+        [titleList, titleType] = test.nextList(that.data.paper, titleType);
+        that.setData({
+          titleType: titleType,
+          titleList: titleList,
+        })
+      }
+      title = titleList[++index - (that.data.startSign[titleType])];
       that.setData({
         title: title,
         index: index,
