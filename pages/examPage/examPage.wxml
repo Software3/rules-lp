@@ -6,7 +6,7 @@
     <text class="progress">进度:{{index + 1}}/{{size}}</text>
   </view>
   <view class="title-area">
-    <text class="title-name">(单选题){{title.name}}({{title.score}}分)</text>
+    <text class="title-name">({{titleType}}){{title.name}}({{title.score}}分)</text>
     <view class="option-group">
       <view id="1" class="option-item" bindtap="doSelect">
         <image src="{{answer[index]==1?'../../images/aPressed.png':'../../images/aNormal.png'}}" class="icon"></image>
