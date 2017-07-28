@@ -155,12 +155,30 @@ Page({
     var titleList = that.data.titleList;
     if ((index-that.data.startSign[titleType]) == 0) {
       [titleList, titleType] = test.prevList(that.data.paper, titleType);
+      var fillsCount = that.data.fillsCount||[];
+      if (titleType == 1) {
+        for (var i = 0;i < titleList.length;i++) {
+          if (titleList[i].name.match(/#/g) == undefined) {
+            console.log(that.data.fillsCount);
+            fillsCount = that.data.fillsCount;
+            break;
+          }
+          var fillCount = titleList[i].name.match(/#/g).length;
+          fillsCount[i] = [];
+          for (var j = 1;j <= fillCount;j++) {
+            fillsCount[i].push({ blankIdx: j, blankId: (index + 1 + i) + "_" + j, row: (index + 1 + i), col: j });
+          }
+          titleList[i].name.replace(/#/g, '______');
+        }
+      }
       that.setData({
         titleList: titleList,
         titleType: titleType,
+        fillsCount: fillsCount,
       })
     }
     var title = titleList[--index - that.data.startSign[titleType]];
+
     that.setData({
       title: title,
       index: index,
@@ -269,14 +287,34 @@ Page({
       var titleType = that.data.titleType;
       var titleList = that.data.titleList;
       var title = {};
+      // 判断是否达到切换到下一个集合的条件
       if ((index - that.data.startSign[titleType]) == (titleList.length - 1)){
         [titleList, titleType] = test.nextList(that.data.paper, titleType);
+        var fillsCount = that.data.fillsCount||[];
+        if (titleType == 1) {
+          for (var i = 0; i < titleList.length; i++) {
+            if (titleList[i].name.match(/#/g)==undefined){
+              console.log(that.data.fillsCount)
+              fillsCount = that.data.fillsCount;
+              break;
+            }
+            var fillCount = titleList[i].name.match(/#/g).length;
+            fillsCount[i] = [];
+            for (var j = 1; j <= fillCount; j++) {
+              fillsCount[i].push({blankIdx: j,blankId: (index+1+i)+"_"+j, row: (index+1+i), col: j});
+            }
+            titleList[i].name = titleList[i].name.replace(/#/g, '______');
+          }
+        }
         that.setData({
-          titleType: titleType,
           titleList: titleList,
+          titleType: titleType,
+          fillsCount: fillsCount,
         })
       }
+      // 根据不同的条件对题目进行不同的处理 
       title = titleList[++index - (that.data.startSign[titleType])];
+
       that.setData({
         title: title,
         index: index,
@@ -376,5 +414,21 @@ Page({
       titleList[i].options[answer[i] - 1].checked = 1;
     }
     return titleList;
+  },
+  /**
+   * 填空文本框confirm事件
+   */
+  storeFillAnswer: function (e) {
+    var inputId = e.currentTarget.id;
+    var that = this;
+    var answer = that.data.answer;
+    var rowcol = inputId.split('_');
+    var row, col;
+    [row, col] = [parseInt(rowcol[1]), parseInt(rowcol[2])];
+    if(answer[row] == undefined) answer[row] = [];
+    answer[row][col] = e.detail.value;
+    that.setData({
+      answer: answer,
+    })
   }
 })
