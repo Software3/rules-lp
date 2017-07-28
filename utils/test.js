@@ -64,7 +64,8 @@ function startSign(paper) {
     sign[i+1] = sign[i] + paper[keyset[i]].length;
   }
   return sign;
-} 
+}
+
 module.exports = {
   size: size,
   initList: initList,
