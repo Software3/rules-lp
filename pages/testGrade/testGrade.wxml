@@ -18,9 +18,13 @@
           <text class="key-text">用时:</text>
           <text class="value-text">{{duration}}分钟</text>
         </view>
-        <view class="info-item">
+        <view class="info-item" hidden="{{score==-1}}">
           <text class="key-text">成绩:</text>
           <text class="value-text">{{score}}分</text>
+        </view>
+        <view class="info-item" hidden="{{score!=-1}}">
+          <text class="key-text">状态:</text>
+          <text class="value-text">试卷批阅中</text>
         </view>
         <view class="info-action">
           <view class="btn-small" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doBack">{{btnText}}</view>
