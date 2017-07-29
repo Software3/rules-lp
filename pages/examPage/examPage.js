@@ -160,7 +160,6 @@ Page({
       if (titleType == 1) {
         for (var i = 0;i < titleList.length;i++) {
           if (titleList[i].name.match(/#/g) == undefined) {
-            console.log(that.data.fillsCount);
             fillsCount = that.data.fillsCount;
             break;
           }
@@ -194,96 +193,65 @@ Page({
     var index = that.data.index;
     if (index >= that.data.size - 1) {
       var isFinish = that.checkAnswer(that.data.answer, that.data.size);
+      var content = '';
       // 完成了全部答案
       if (isFinish) {
-        // 标识用户是否取消了模态框
-        var isCancel = false;
-        wx.showModal({
-          title: '温馨提示',
-          content: '你已完成考试内容是否提交？',
-          showCancel: true,
-          cancelText: '取消',
-          cancelColor: '',
-          confirmText: '确定',
-          confirmColor: '#4285F5',
-          success: function(res) {
-            // 用户点击了模态框的确认按钮
-            if (res.confirm) {
-              var data = {};
-              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
-              var testRecord = that.data.testRecord;
-              data.testrecord = testRecord;
-              data.titleList = titleList;
-              wx.showNavigationBarLoading();
-              wx.request({
-                url: 'https://www.ltaoj.cn/rules/test/submitTest',
-                data: JSON.stringify(data),
-                header: {
-                  'content-type': 'application/json',
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function (res) {
-                  var data = res.data;
-                  wx.hideNavigationBarLoading();
-                  wx.redirectTo({
-                    url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
-                  })
-                  console.log(res.data);
-                },
-                fail: function (res) {
-                  console.log('failed');
-                },
-                complete: function (res) {
-                  console.log('complete');
-                },
-              })
-            }
-          },
-          fail: function(res) {},
-          complete: function(res) {},
-        })
+        content = '你已完成考试内容是否提交？';
       } else {
-        wx.showModal({
-          title: '温馨提示',
-          content: '你还有题目未做完确定要提交吗',
-          showCancel: true,
-          cancelText: '取消',
-          cancelColor: '',
-          confirmText: '确定',
-          confirmColor: '#4285F5',
-          success: function(res) {
-            if (res.confirm) {
-              var data = {};
-              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
-              var testRecord = that.data.testRecord;
-              data.testrecord = testRecord;
-              data.titleList = titleList;
-              console.log(JSON.stringify(data));
-              wx.request({
-                url: 'https://www.ltaoj.cn/rules/test/submitTest',
-                data: JSON.stringify(data),
-                header: {
-                  'content-type': 'application/json',
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function (res) {
-                  console.log(res.data);
-                },
-                fail: function (res) {
-                  console.log('failed');
-                },
-                complete: function (res) {
-                  console.log('complete');
-                },
-              })
-            }
-          },
-          fail: function(res) {},
-          complete: function(res) {},
-        })
+        content = '你还有题目未做完确定要提交吗';
       }
+      // 标识用户是否取消了模态框
+      var isCancel = false;
+      wx.showModal({
+        title: '温馨提示',
+        content: content,
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '',
+        confirmText: '确定',
+        confirmColor: '#4285F5',
+        success: function (res) {
+          // 用户点击了模态框的确认按钮
+          if (res.confirm) {
+            var data = {};
+            // 获取SubmitPaper
+            var paper = that.data.paper;
+            var startSign = that.data.startSign;
+            var size = that.data.size;
+            var answer = that.data.answer;
+            var submitPaper = that.formatSPaper(paper.titleList, paper.blanksList, paper.judgeList, answer, startSign, size);
+            var testRecord = that.data.testRecord;
+            data.testrecord = testRecord;
+            data.submitPaper = submitPaper;
+            wx.showNavigationBarLoading();
+            wx.request({
+              url: 'https://www.ltaoj.cn/rules/test/submitTest',
+              data: JSON.stringify(data),
+              header: {
+                'content-type': 'application/json',
+              },
+              method: 'post',
+              dataType: 'json',
+              success: function (res) {
+                var data = res.data;
+                wx.hideNavigationBarLoading();
+                wx.redirectTo({
+                  url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
+                })
+                console.log(res.data);
+              },
+              fail: function (res) {
+                console.log('failed');
+              },
+              complete: function (res) {
+                console.log('complete');
+              },
+            })
+          }
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
     } else {
       var titleType = that.data.titleType;
       var titleList = that.data.titleList;
@@ -295,7 +263,6 @@ Page({
         if (titleType == 1) {
           for (var i = 0; i < titleList.length; i++) {
             if (titleList[i].name.match(/#/g)==undefined){
-              console.log(that.data.fillsCount)
               fillsCount = that.data.fillsCount;
               break;
             }
@@ -382,15 +349,16 @@ Page({
       that.startTimer(that.data.leftTime);
     }, 1000);
   },
+
   /**
    * 工具函数，将各位数字格式化
    */
   formatNumber: function (n) {
     n = n.toString()
-  return n[1] ? n : '0' + n
+    return n[1] ? n : '0' + n
   },
 
-    /**
+  /**
    * 工具函数，检查该组试题是否已经做完
    */
   checkAnswer: function (answer, size) {
@@ -532,11 +500,5 @@ Page({
     that.setData({
       answer: answer,
     })
-    // 获取SubmitPaper
-    var paper = that.data.paper;
-    var startSign = that.data.startSign;
-    var size = that.data.size;
-    var submitPaper = that.formatSPaper(paper.titleList, paper.blanksList, paper.judgeList, answer, startSign, size);
-    console.log(submitPaper);
   }
 })
