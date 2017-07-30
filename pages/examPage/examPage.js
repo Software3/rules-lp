@@ -192,7 +192,7 @@ Page({
     var that = this;
     var index = that.data.index;
     if (index >= that.data.size - 1) {
-      var isFinish = that.checkAnswer(that.data.answer, that.data.size);
+      var isFinish = test.checkAnswer(that.data.answer, that.data.size);
       var content = '';
       // 完成了全部答案
       if (isFinish) {
@@ -341,21 +341,13 @@ Page({
     }
 
     // 渲染界面
-    var leftTime = [hour, minute, second].map(that.formatNumber).join(':');
+    var leftTime = [hour, minute, second].map(util.formatNumber).join(':');
     that.setData({
       leftTime: leftTime,
     })
     setTimeout(function () {
       that.startTimer(that.data.leftTime);
     }, 1000);
-  },
-
-  /**
-   * 工具函数，将各位数字格式化
-   */
-  formatNumber: function (n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
   },
 
   /**
@@ -372,91 +364,25 @@ Page({
   },
 
   /**
-   * 工具函数，格式化上传数据
-   */
-  formatAnswer: function (titleList, answer) {
-    for (var i = 0; i < titleList.length; i++) {
-      for (var j = 0; j < titleList[i].options.length; j++) {
-        titleList[i].options[j].checked = 0;
-      }
-      if (answer[i] == undefined) continue;
-      titleList[i].options[answer[i] - 1].checked = 1;
-    }
-    return titleList;
-  },
-
-  /**
-   * 工具函数，格式化填空题答案，每个答案之间用#分隔，
-   * 如果答案为空用@csu代替
-   */
-  formatBAnswer: function (blanksList, answer, first, fillsCount) {
-    for (var i = 0;i < blanksList.length;i++) {
-      var fillCount = fillsCount[i].length;
-      var blanks = answer[first+i];
-      var str = "";
-      for(var j = 1;j <= fillCount;j++) {
-        if (blanks == undefined||blanks[j] == undefined||blanks[j]==""){
-          str += '#@csu';
-        } else {
-          str += '#' + blanks[j];
-        }
-      }
-      str = str.substring(1, str.length);
-      blanksList[i].answer = str;
-    }
-    return blanksList;
-  },
-
-  /**
-   * 工具函数，格式化判断题答案，正选为1，反选为0，不选为-1
-   */
-  formatJAnswer: function (judgeList, answer, first) {
-    for (var i = 0;i < judgeList.length;i++) {
-      if (answer[first+i] == undefined||answer[first+i]=="") {
-        judgeList[i].answer = -1;
-      }else {
-        judgeList[i].answer = answer[first+i];
-      }
-    }
-    return judgeList;
-  },
-
-  /**
-   * 工具函数，格式化问答题答案
-   */
-  formatQAnswer: function (answer, first, size) {
-    var str = "";
-    for (var i = 0;i < size;i++) {
-      if (answer[first+i] == undefined||answer[first+i]=="") {
-        str += '#@csu';
-      }else {
-        str += '#' + answer[first+i];
-      }
-    }
-    str = str.substring(1, str.length);
-    return str;
-  },
-
-  /**
    * 工具函数，组装上传答案的Paper
    */
   formatSPaper: function (titleList,blanksList,judgeList, answer, startSign, totalSize) {
     var that = this;
     // 格式化选择题集
-    titleList = that.formatAnswer(titleList, answer);
+    titleList = test.formatAnswer(titleList, answer);
     // 格式化填空题答案
     var fillsCount = that.data.fillsCount;
-    blanksList = that.formatBAnswer(blanksList, answer, startSign[1], fillsCount);
+    blanksList = test.formatBAnswer(blanksList, answer, startSign[1], fillsCount);
     // 格式化判断题答案
-    judgeList = that.formatJAnswer(judgeList, answer, startSign[2]);
+    judgeList = test.formatJAnswer(judgeList, answer, startSign[2]);
     // 格式化问答题答案
     var shortAnswer, caseAnswer, discussAnswer;
     var shortSize = startSign[4]-startSign[3];
     var caseSize = startSign[5]-startSign[4];
     var discussSize = totalSize - startSign[5];
-    shortAnswer = that.formatQAnswer(answer, startSign[3], shortSize);
-    caseAnswer = that.formatQAnswer(answer, startSign[4], caseSize);
-    discussAnswer = that.formatQAnswer(answer, startSign[5], discussSize);
+    shortAnswer = test.formatQAnswer(answer, startSign[3], shortSize);
+    caseAnswer = test.formatQAnswer(answer, startSign[4], caseSize);
+    discussAnswer = test.formatQAnswer(answer, startSign[5], discussSize);
 
     // 组装SubmitPaper对象
     var submitPaper = {};
