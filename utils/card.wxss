@@ -78,3 +78,13 @@
 .btn-hover {
   background-color: rgba(66, 133, 245, 0.7)
 }
+
+.btn-disabled {
+  width: 224rpx;
+  text-align: center;
+  padding: 32rpx;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+  background-color: rgba(66, 133, 245, 0.7)
+}
