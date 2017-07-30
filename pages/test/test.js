@@ -43,6 +43,8 @@ Page({
       that.toLogin();
       return;
     }
+    var clickable = that.data.clickable;
+    if (!clickable) return;
     var studentId = userInfo.studentId;
     var testId = that.data.testInfo.testId;
     var duration = that.data.testInfo.duration;
@@ -91,7 +93,7 @@ Page({
           btnText = '继续考试';
           clickable = true;
         } else {
-          btnText = '重新考试';
+          btnText = '已考试';
           clickable = false;
         }
         that.setData({
