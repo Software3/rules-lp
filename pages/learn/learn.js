@@ -41,6 +41,17 @@ Page({
       complete: function(res) {},
     })
   },
+
+  /**
+   * 事件处理函数--练习
+   */
+  gotoPractice: function(event) {
+    var titleType = event.currentTarget.id.split('_')[2];
+    wx.navigateTo({
+      url: '../../pages/specialExercises/specialExercises?titleType=' + titleType,
+    })
+  },
+
   /**
    * 事件处理函数--专题练习
    */

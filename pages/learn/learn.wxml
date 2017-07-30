@@ -26,7 +26,7 @@
   </view>
 
   <template name="flex-button">
-    <view class="flex-item{{id}}" hover-class="flex-item-hover" hover-start-time="20" hover-stay-time="70" bindtap="gotoLearn{{id}}">
+    <view id="prac_item_{{id}}" class="flex-item{{id}}" hover-class="flex-item-hover" hover-start-time="20" hover-stay-time="70" bindtap="gotoPractice">
       <text class="flex-btn-text">{{title}}</text>
     </view>
   </template>
