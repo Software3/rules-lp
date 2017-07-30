@@ -1,5 +1,6 @@
 // contestPage.js
 var util = require('../../utils/util.js')
+var test = require('../../utils/test.js')
 Page({
 
   /**
@@ -17,6 +18,9 @@ Page({
     title: {},
     prevBtnText: '上一题',
     nextBtnText: '下一题',
+    paper: {},
+    startSign: [],
+    titlesStr: ['单选题', '填空题', '判断题', '简答题', '案例分析题', '论述题'],
   },
 
   /**
@@ -35,7 +39,7 @@ Page({
     json.startTime = util.formatTime(new Date());
     // 请求试题
     wx.request({
-      url: 'https://www.ltaoj.cn/rules/test/startTest',
+      url: 'https://www.ltaoj.cn/rules/test/startContest',
       data: JSON.stringify(json),
       header: {
         'content-type': 'application/json',
@@ -43,18 +47,24 @@ Page({
       method: 'post',
       dataType: 'json',
       success: function (res) {
-        var titleList = res.data;
-        var size = titleList.length;
+        var paper = res.data;
+        var titleList = test.initList(paper)[0];
+        var titleType = test.initList(paper)[1];
+        var size = test.size(paper);
         if (size == 0) return;
         var title = titleList[0];
         var index = 0;
         var answer = new Array(size);
+        var startSign = test.startSign(paper);
         that.setData({
+          paper: paper,
           titleList: titleList,
           size: size,
           title: title,
           index: index,
           answer: answer,
+          titleType: titleType,
+          startSign: startSign,
         })
         // 请求testInfo获取时间，启动计时器
         wx.request({
@@ -126,7 +136,33 @@ Page({
     var that = this;
     var index = that.data.index;
     if (index == 0) return;
-    var title = that.data.titleList[--index];
+    var titleType = that.data.titleType;
+    var titleList = that.data.titleList;
+    if ((index - that.data.startSign[titleType]) == 0) {
+      [titleList, titleType] = test.prevList(that.data.paper, titleType);
+      var fillsCount = that.data.fillsCount || [];
+      if (titleType == 1) {
+        for (var i = 0; i < titleList.length; i++) {
+          if (titleList[i].name.match(/#/g) == undefined) {
+            fillsCount = that.data.fillsCount;
+            break;
+          }
+          var fillCount = titleList[i].name.match(/#/g).length;
+          fillsCount[i] = [];
+          for (var j = 1; j <= fillCount; j++) {
+            fillsCount[i].push({ blankIdx: j, blankId: (index + 1 + i) + "_" + j, row: (index + 1 + i), col: j });
+          }
+          titleList[i].name.replace(/#/g, '______');
+        }
+      }
+      that.setData({
+        titleList: titleList,
+        titleType: titleType,
+        fillsCount: fillsCount,
+      })
+    }
+    var title = titleList[--index - that.data.startSign[titleType]];
+
     that.setData({
       title: title,
       index: index,
@@ -140,99 +176,97 @@ Page({
     var that = this;
     var index = that.data.index;
     if (index >= that.data.size - 1) {
-      var isFinish = that.checkAnswer(that.data.answer, that.data.size);
+      var isFinish = test.checkAnswer(that.data.answer, that.data.size);
+      var content = '';
       // 完成了全部答案
       if (isFinish) {
-        // 标识用户是否取消了模态框
-        var isCancel = false;
-        wx.showModal({
-          title: '温馨提示',
-          content: '你已完成考试内容是否提交？',
-          showCancel: true,
-          cancelText: '取消',
-          cancelColor: '',
-          confirmText: '确定',
-          confirmColor: '#4285F5',
-          success: function (res) {
-            // 用户点击了模态框的确认按钮
-            if (res.confirm) {
-              var data = {};
-              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
-              var testRecord = that.data.testRecord;
-              data.testrecord = testRecord;
-              data.titleList = titleList;
-              wx.showNavigationBarLoading();
-              wx.request({
-                url: 'https://www.ltaoj.cn/rules/test/submitTest',
-                data: JSON.stringify(data),
-                header: {
-                  'content-type': 'application/json',
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function (res) {
-                  var data = res.data;
-                  wx.hideNavigationBarLoading();
-                  wx.redirectTo({
-                    url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
-                  })
-                  console.log(res.data);
-                },
-                fail: function (res) {
-                  console.log('failed');
-                },
-                complete: function (res) {
-                  console.log('complete');
-                },
-              })
-            }
-          },
-          fail: function (res) { },
-          complete: function (res) { },
-        })
+        content = '你已完成考试内容是否提交？';
       } else {
-        wx.showModal({
-          title: '温馨提示',
-          content: '你还有题目未做完确定要提交吗',
-          showCancel: true,
-          cancelText: '取消',
-          cancelColor: '',
-          confirmText: '确定',
-          confirmColor: '#4285F5',
-          success: function (res) {
-            if (res.confirm) {
-              var data = {};
-              var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
-              var testRecord = that.data.testRecord;
-              data.testrecord = testRecord;
-              data.titleList = titleList;
-              console.log(JSON.stringify(data));
-              wx.request({
-                url: 'https://www.ltaoj.cn/rules/test/submitTest',
-                data: JSON.stringify(data),
-                header: {
-                  'content-type': 'application/json',
-                },
-                method: 'post',
-                dataType: 'json',
-                success: function (res) {
-                  console.log(res.data);
-                },
-                fail: function (res) {
-                  console.log('failed');
-                },
-                complete: function (res) {
-                  console.log('complete');
-                },
-              })
+        content = '你还有题目未做完确定要提交吗';
+      }
+      // 标识用户是否取消了模态框
+      var isCancel = false;
+      wx.showModal({
+        title: '温馨提示',
+        content: content,
+        showCancel: true,
+        cancelText: '取消',
+        cancelColor: '',
+        confirmText: '确定',
+        confirmColor: '#4285F5',
+        success: function (res) {
+          // 用户点击了模态框的确认按钮
+          if (res.confirm) {
+            var data = {};
+            // 获取SubmitPaper
+            var paper = that.data.paper;
+            var startSign = that.data.startSign;
+            var size = that.data.size;
+            var answer = that.data.answer;
+            var submitPaper = that.formatSPaper(paper.titleList, paper.blanksList, paper.judgeList, answer, startSign, size);
+            var testRecord = that.data.testRecord;
+            data.testrecord = testRecord;
+            data.submitPaper = submitPaper;
+            wx.showNavigationBarLoading();
+            wx.request({
+              url: 'https://www.ltaoj.cn/rules/test/submitTest',
+              data: JSON.stringify(data),
+              header: {
+                'content-type': 'application/json',
+              },
+              method: 'post',
+              dataType: 'json',
+              success: function (res) {
+                var data = res.data;
+                wx.hideNavigationBarLoading();
+                wx.redirectTo({
+                  url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
+                })
+                console.log(res.data);
+              },
+              fail: function (res) {
+                console.log('failed');
+              },
+              complete: function (res) {
+                console.log('complete');
+              },
+            })
+          }
+        },
+        fail: function (res) { },
+        complete: function (res) { },
+      })
+    } else {
+      var titleType = that.data.titleType;
+      var titleList = that.data.titleList;
+      var title = {};
+      // 判断是否达到切换到下一个集合的条件
+      if ((index - that.data.startSign[titleType]) == (titleList.length - 1)) {
+        [titleList, titleType] = test.nextList(that.data.paper, titleType);
+        var fillsCount = that.data.fillsCount || [];
+        if (titleType == 1) {
+          for (var i = 0; i < titleList.length; i++) {
+            if (titleList[i].name.match(/#/g) == undefined) {
+              fillsCount = that.data.fillsCount;
+              break;
             }
-          },
-          fail: function (res) { },
-          complete: function (res) { },
+            var fillCount = titleList[i].name.match(/#/g).length;
+            fillsCount[i] = [];
+            for (var j = 1; j <= fillCount; j++) {
+              fillsCount[i].push({ blankIdx: j, blankId: (index + 1 + i) + "_" + j, row: (index + 1 + i), col: j });
+            }
+            titleList[i].name = titleList[i].name.replace(/#/g, '______');
+          }
+        }
+        that.setData({
+          titleList: titleList,
+          titleType: titleType,
+          fillsCount: fillsCount,
         })
       }
-    } else {
-      var title = that.data.titleList[++index];
+      // 根据不同的条件对题目进行不同的处理 
+      title = titleList[++index - (that.data.startSign[titleType])];
+
       that.setData({
         title: title,
         index: index,
@@ -264,7 +298,7 @@ Page({
     }
 
     // 渲染界面
-    var leftTime = [hour, minute, second].map(that.formatNumber).join(':');
+    var leftTime = [hour, minute, second].map(util.formatNumber).join(':');
     that.setData({
       leftTime: leftTime,
     })
@@ -272,38 +306,69 @@ Page({
       that.startTimer(that.data.leftTime);
     }, 1000);
   },
+
   /**
-   * 工具函数，将各位数字格式化
+   * 工具函数，组装上传答案的Paper
    */
-  formatNumber: function (n) {
-    n = n.toString()
-    return n[1] ? n : '0' + n
+  formatSPaper: function (titleList, blanksList, judgeList, answer, startSign, totalSize) {
+    var that = this;
+    // 格式化选择题集
+    titleList = test.formatAnswer(titleList, answer);
+    // 格式化填空题答案
+    var fillsCount = that.data.fillsCount;
+    blanksList = test.formatBAnswer(blanksList, answer, startSign[1], fillsCount);
+    // 格式化判断题答案
+    judgeList = test.formatJAnswer(judgeList, answer, startSign[2]);
+    // 格式化问答题答案
+    var shortAnswer, caseAnswer, discussAnswer;
+    var shortSize = startSign[4] - startSign[3];
+    var caseSize = startSign[5] - startSign[4];
+    var discussSize = totalSize - startSign[5];
+    shortAnswer = test.formatQAnswer(answer, startSign[3], shortSize);
+    caseAnswer = test.formatQAnswer(answer, startSign[4], caseSize);
+    discussAnswer = test.formatQAnswer(answer, startSign[5], discussSize);
+
+    // 组装SubmitPaper对象
+    var submitPaper = {};
+    submitPaper.titleList = titleList;
+    submitPaper.blanksList = blanksList;
+    submitPaper.judgeList = judgeList;
+    submitPaper.shortAnswer = shortAnswer;
+    submitPaper.caseAnswer = caseAnswer;
+    submitPaper.discussAnswer = discussAnswer;
+    return submitPaper;
   },
 
   /**
- * 工具函数，检查该组试题是否已经做完
- */
-  checkAnswer: function (answer, size) {
-    if (answer.length < size) return false;
-    for (var i = 0; i < answer.length; i++) {
-      if (answer[i] == undefined) {
-        return false;
-      }
-    }
-    return true;
+   * 填空文本框confirm事件
+   */
+  storeFillAnswer: function (e) {
+    var inputId = e.currentTarget.id;
+    var that = this;
+    var answer = that.data.answer;
+    var rowcol = inputId.split('_');
+    var row, col;
+    [row, col] = [parseInt(rowcol[1]), parseInt(rowcol[2])];
+    if (answer[row] == undefined) answer[row] = [];
+    answer[row][col] = e.detail.value;
+    that.setData({
+      answer: answer,
+    })
   },
 
   /**
-   * 工具函数，格式化上传数据
+   * 问答题多行文本框confirm事件
    */
-  formatAnswer: function (titleList, answer) {
-    for (var i = 0; i < titleList.length; i++) {
-      for (var j = 0; j < titleList[i].options.length; j++) {
-        titleList[i].options[j].checked = 0;
-      }
-      if (answer[i] == undefined) continue;
-      titleList[i].options[answer[i] - 1].checked = 1;
-    }
-    return titleList;
+  storeQuestionAnswer: function (e) {
+    var inputId = e.currentTarget.id;
+    var that = this;
+    var answer = that.data.answer;
+    var rowcol = inputId.split('_');
+    var row;
+    row = parseInt(rowcol[1]);
+    answer[row] = e.detail.value;
+    that.setData({
+      answer: answer,
+    })
   }
 })

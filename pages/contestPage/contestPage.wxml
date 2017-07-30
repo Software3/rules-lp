@@ -6,8 +6,9 @@
     <text class="progress">进度:{{index + 1}}/{{size}}</text>
   </view>
   <view class="title-area">
-    <text class="title-name">(单选题){{title.name}}({{title.score}}分)</text>
-    <view class="option-group">
+    <text class="title-name">({{titlesStr[titleType]}}){{title.name}}({{title.score}}分)</text>
+    <!--选择题答案区域  -->
+    <view hidden="{{titleType!=0}}" class="option-group">
       <view id="1" class="option-item" bindtap="doSelect">
         <image src="{{answer[index]==1?'../../images/aPressed.png':'../../images/aNormal.png'}}" class="icon"></image>
         <text class="option-text">{{title.options[0].content}}</text>
@@ -23,6 +24,26 @@
       <view id="4" class="option-item" bindtap="doSelect">
         <image src="{{answer[index]==4?'../../images/dPressed.png':'../../images/dNormal.png'}}" class="icon"></image>
         <text class="option-text">{{title.options[3].content}}</text>
+      </view>
+    </view>
+
+    <!-- <template name="blank-item">
+      <text>填空{{blankIdx}}</text>
+      <input id="fill_{{blankId}}" placeholder="请输入第{{blankIdx}}个填空的答案" type="text" bindconfirm="storeFillAnswer"/>
+    </template> -->
+    <!--填空题答案区域  -->
+    <view wx:for="{{fillsCount[index-startSign[titleType]]}}" wx:key="blankId" hidden="{{titleType!=1}}" class="blank-group">
+      <view name="blank-item">
+        <text>填空{{item.blankIdx}}</text>
+        <input id="fill_{{item.blankId}}" value="{{answer[item.row][item.col]}}" placeholder="请输入第{{item.blankIdx}}个填空的答案" type="text" bindconfirm="storeFillAnswer" bindblur="storeFillAnswer"/>
+      </view>
+      <!-- <template is="blank-item" data="{{...item}}"></template> -->
+    </view>
+
+    <!--简答题答案  -->
+    <view hidden="{{titleType!=3&&titleType!=4&&titleType!=5}}" class="question-group">
+      <view class="question-item">
+        <textarea id="question_{{index}}" value="{{answer[index]}}" placeholder="请输入问答题答案" maxlength="800" type="text" bindconfirm="storeQuestionAnswer" bindblur="storeQuestionAnswer"/>
       </view>
     </view>
   </view>
