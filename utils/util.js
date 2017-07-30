@@ -102,4 +102,5 @@ module.exports = {
   getTime: getTime,
   timeDiff: timeDiff,
   getDiffMinute: getDiffMinute,
+  formatNumber: formatNumber,
 }
