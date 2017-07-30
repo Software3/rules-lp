@@ -16,6 +16,8 @@ Page({
     size: 0,
     page: 1,
     answer: [],
+    titleType: 0,
+    titlesStr: ['单选题', '填空题', '判断题', '简答题', '案例分析题', '论述题'],
   },
 
   /**
@@ -23,30 +25,67 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
+    var titleType = parseInt(options.titleType);
     // 从缓存获取题目页数
-    var titlePage = wx.getStorageSync('titlePage') || 1;
+    var titlePage = wx.getStorageSync('titlePage'+titleType) || 1;
+    console.log(wx.getStorageSync('titlePage' + titleType))
     wx.showNavigationBarLoading();
     wx.request({
       url: 'https://www.ltaoj.cn/rules/title/practice',
       data: {
         page: titlePage,
-        count: 10
+        count: 10,
+        type: titleType,
       },
       method: 'get',
       success: function (res) {
         var titleList = res.data.object;
+        console.log(titleList)
         var title = titleList[0];
         var index = 0;
         var size = titleList.length;
         var answer = new Array(size);
+        var fillsCount = that.data.fillsCount||[];
         if(titleList != null && titleList.length > 0) {
+          if (titleType == 1) {
+            for (var i = 0; i < titleList.length; i++) {
+              if (titleList[i].name.match(/#/g) == undefined) {
+                fillsCount = that.data.fillsCount;
+              }
+              var fillCount = titleList[i].name.match(/#/g).length;
+              fillsCount[i] = [];
+              for (var j = 1; j <= fillCount; j++) {
+                fillsCount[i].push({ blankIdx: j, blankId: (1 + i) + "_" + j, row: (1 + i), col: j });
+              }
+              titleList[i].name = titleList[i].name.replace(/#/g, '______');
+            }
+          }
           that.setData({
             titleList: titleList,
             title: title,
             index: 0,
             size: size,
             answer: answer,
+            titleType: titleType,
+            fillsCount: fillsCount,
           });
+        } else if (wx.getStorageSync('titlePage' + titleType) == '') {
+          wx.showModal({
+            title: '温馨提示',
+            content: '暂没有该类型的题目,您可以先去练习其他类型题目',
+            showCancel: false,
+            cancelText: '',
+            cancelColor: '',
+            confirmText: '我知道了',
+            confirmColor: '#4285F5',
+            success: function(res) {
+              wx.navigateBack({
+                delta: 1,
+              })
+            },
+            fail: function(res) {},
+            complete: function(res) {},
+          })
         } else {
           wx.showModal({
             title: '温馨提示',
@@ -58,8 +97,8 @@ Page({
             confirmColor: '#4285F5',
             success: function(res) {
               if(res.confirm) {
-                wx.setStorageSync("titlePage", 1);
-                that.onLoad();  
+                wx.setStorageSync('titlePage'+titleType, 1);
+                that.onLoad({titleType: titleType});
               }
               if(res.cancel) {
                 wx.navigateBack({
@@ -151,9 +190,10 @@ Page({
                 dataType: 'json',
                 success: function(res) {
                   console.log(res.data);
+                  var titleType = that.data.titleType;
                   // 将所做到页数存储到本地
-                  var titlePage = wx.getStorageSync('titlePage') || 1;
-                  wx.setStorageSync('titlePage', ++titlePage);
+                  var titlePage = wx.getStorageSync('titlePage' + titleType) || 1;
+                  wx.setStorageSync('titlePage' + titleType, ++titlePage);
                   // 更新本地学习记录，时间，题目数
                   var todayMinutes = wx.getStorageSync('todayMinutes') || 0;                  
                   var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;

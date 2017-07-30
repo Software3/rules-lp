@@ -168,7 +168,7 @@ Page({
           for (var j = 1;j <= fillCount;j++) {
             fillsCount[i].push({ blankIdx: j, blankId: (index + 1 + i) + "_" + j, row: (index + 1 + i), col: j });
           }
-          titleList[i].name.replace(/#/g, '______');
+          titleList[i].name = titleList[i].name.replace(/#/g, '______');
         }
       }
       that.setData({
