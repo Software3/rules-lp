@@ -7,6 +7,7 @@
   font-size: 28rpx;
   text-align: center;
   line-height: 112rpx;
+  white-space: pre-wrap;
 }
 
 .circle-btn-hover {
