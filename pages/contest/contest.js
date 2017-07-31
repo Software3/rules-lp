@@ -271,7 +271,7 @@ Page({
         console.log(res.data);
         var data = res.data;
         wx.hideNavigationBarLoading();
-        wx.redirectTo({
+        wx.navigateTo({
           url: '../../pages/testGrade/testGrade?startTime=' + data.startTime + '&submitTime=' + data.submitTime + '&score=' + data.score,
         })
       },
