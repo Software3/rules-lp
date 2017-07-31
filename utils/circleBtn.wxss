@@ -1,0 +1,14 @@
+.circle-btn {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background-color: #4285F5;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  text-align: center;
+  line-height: 112rpx;
+}
+
+.circle-btn-hover {
+  background-color: rgba(66, 133, 245, 0.7)
+}
