@@ -308,14 +308,14 @@ Page({
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
   /**
    * 启动定时器
@@ -426,5 +426,55 @@ Page({
     that.setData({
       answer: answer,
     })
-  }
+  },
+
+  /**
+   * 事件函数，取消考试
+   */
+  cancelExam: function (event) {
+    var that = this;
+    wx.showModal({
+      title: '温馨提示',
+      content: '您确定要取消本次考试吗？',
+      showCancel: true,
+      cancelText: '不了',
+      cancelColor: '',
+      confirmText: '确定',
+      confirmColor: '#4285F5',
+      success: function(res) {
+        if(res.confirm) {
+          wx.showNavigationBarLoading();
+          var testRecord = that.data.testRecord;
+          wx.request({
+            url: 'https://www.ltaoj.cn/rules/test/deleteTestRecord',
+            data: testRecord,
+            header: {
+              'content-type': 'application/json',
+            },
+            method: 'post',
+            dataType: 'json',
+            success: function(res) {
+              wx.hideNavigationBarLoading();
+              if(res.data.result == 'success'){
+                wx.navigateBack({
+                  delta: 1,
+                })
+              }else {
+                wx.showToast({
+                  title: '出错了,请重试',
+                })
+              }
+            },
+            fail: function(res) {},
+            complete: function(res) {
+              wx.hideNavigationBarLoading();
+            },
+          })
+        }
+      },
+      fail: function(res) {},
+      complete: function(res) {},
+    })
+  },
+  
 })

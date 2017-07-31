@@ -33,9 +33,9 @@
     </template> -->
     <!--填空题答案区域  -->
     <view wx:for="{{fillsCount[index-startSign[titleType]]}}" wx:key="blankId" hidden="{{titleType!=1}}" class="blank-group">
-      <view name="blank-item">
-        <text>填空{{item.blankIdx}}</text>
-        <input id="fill_{{item.blankId}}" value="{{answer[item.row][item.col]}}" placeholder="请输入第{{item.blankIdx}}个填空的答案" type="text" bindconfirm="storeFillAnswer" bindblur="storeFillAnswer"/>
+      <view class="blank-item">
+        <text class="blank-text">填空{{item.blankIdx}}</text>
+        <input class="blank-input" id="fill_{{item.blankId}}" value="{{answer[item.row][item.col]}}" placeholder="请输入第{{item.blankIdx}}个填空的答案" type="text" bindconfirm="storeFillAnswer" bindblur="storeFillAnswer"/>
       </view>
       <!-- <template is="blank-item" data="{{...item}}"></template> -->
     </view>
@@ -43,9 +43,14 @@
     <!--简答题答案  -->
     <view hidden="{{titleType!=3&&titleType!=4&&titleType!=5}}" class="question-group">
       <view class="question-item">
-        <textarea id="question_{{index}}" value="{{answer[index]}}" placeholder="请输入问答题答案" maxlength="800" type="text" bindconfirm="storeQuestionAnswer" bindblur="storeQuestionAnswer"/>
+        <textarea class="question-input" id="question_{{index}}" value="{{answer[index]}}" placeholder="请输入问答题答案,最多800字" maxlength="800" type="text" bindconfirm="storeQuestionAnswer" bindblur="storeQuestionAnswer"/>
       </view>
     </view>
+
+  <!--圆形控制按钮  -->
+  <view class="circle-action">
+    <view class="circle-btn " bindtap="cancelExam" hover-class="circle-btn-hover" hover-start-time="20" hover-stay-time="70">取消考试</view>
+  </view>
   </view>
   <view class="control-area">
     <view class="btn-prev" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doPrevTitle">{{prevBtnText}}</view>
