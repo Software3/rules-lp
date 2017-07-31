@@ -1,4 +1,5 @@
 // specialExercises.js
+var util = require('../../utils/util.js')
 Page({
 
   /**
@@ -145,10 +146,16 @@ Page({
     // 题目末尾，显示模态框，停止计时
     if(index >= that.data.size - 1) {
       var isFinish = that.checkAnswer(that.data.answer, that.data.size);
-      if(isFinish) {
+      if(isFinish||that.data.titleType!=0) {
+        var url = 'https://www.ltaoj.cn/rules/learn/upClock';
+        var content = '您已学习完本组题目是否提交？';
+        if (that.data.titleType == 0) {
+          url = 'https://www.ltaoj.cn/rules/title/submit';
+          content = '您已做完该组所有题目是否提交？'
+        }
         wx.showModal({
           title: '温馨提示',
-          content: '您已做完该组所有题目是否提交？',
+          content: content,
           showCancel: true,
           cancelText: '取消',
           cancelColor: '',
@@ -156,54 +163,32 @@ Page({
           confirmColor: '#4285F5',
           success: function(res) {
             if (res.confirm) {
-              var data = that.formatAnswer(that.data.titleList, that.data.answer);
-              console.log(JSON.stringify({
-                'account': {
-                  'studentId': 3903150326,
-                  'username': '李涛江',
-                  'sex': 1,
-                  'clazz': null,
-                  'grade': null,
-                  'college': null,
-                  'school': null,
-                },
-                'titleList': data,
-              }));
+              that.updateLearnTime();
+              var userInfo = wx.getStorageSync('userInfo') || undefined;
+              var data = {};
+              if (that.data.titleType == 0) {
+                var titleList = that.formatAnswer(that.data.titleList, that.data.answer);
+                data = { account: userInfo, titleList: titleList };
+              } else {
+                var todayMinutes = wx.getStorageSync('todayMinutes') || 0;
+                var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
+                data.studentId = userInfo.studentId;
+                data.titleNum = todayTitleNum;
+                data.duration = todayMinutes;
+                data.clockDay = util.formatTime(new Date());
+              }
               wx.request({
-                url: 'https://www.ltaoj.cn/rules/title/submit',
-                data: JSON.stringify({
-                  'account': {
-                    'studentId': 3903150326,
-                    'username': '李涛江',
-                    'sex': 1,
-                    'clazz': null,
-                    'grade': null,
-                    'college': null,
-                    'school': null,
-                  },
-                  'titleList': data,
-                }),
+                url: url,
+                data: JSON.stringify(data),
                 header: {
                   'content-type': 'application/json',
                 },
                 method: 'post',
                 dataType: 'json',
                 success: function(res) {
-                  console.log(res.data);
-                  var titleType = that.data.titleType;
-                  // 将所做到页数存储到本地
-                  var titlePage = wx.getStorageSync('titlePage' + titleType) || 1;
-                  wx.setStorageSync('titlePage' + titleType, ++titlePage);
-                  // 更新本地学习记录，时间，题目数
-                  var todayMinutes = wx.getStorageSync('todayMinutes') || 0;                  
-                  var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
-                  console.log(todayTitleNum + " " + todayMinutes);
-                  todayMinutes = todayMinutes + parseInt(that.data.hour) * 60 + parseInt(that.data.minute) + parseInt(that.data.second) / 60;
-                  todayTitleNum = todayTitleNum + that.data.size;
-                  wx.setStorageSync('todayMinutes', todayMinutes);
-                  wx.setStorageSync('todayTitleNum', todayTitleNum);                     // 页面重定向至结果页面
+                  // 页面重定向至结果页面
                   wx.redirectTo({
-                    url: '../practiceResult/practiceResult?result=1',
+                    url: '../practiceResult/practiceResult?result=1&titleType='+that.data.titleType,
                   })
                 },
                 fail: function(res) {},
@@ -365,5 +350,23 @@ Page({
       isShowAnswer: isShowAnswer,
       answerActionStr:  answerActionStr,
     })
+  },
+
+  /**
+   * 更新本地存储时间
+   */
+  updateLearnTime: function() {
+    var that = this;
+    var titleType = that.data.titleType;
+    // 将所做到页数存储到本地
+    var titlePage = wx.getStorageSync('titlePage' + titleType) || 1;
+    wx.setStorageSync('titlePage' + titleType, ++titlePage);
+    // 更新本地学习记录，时间，题目数
+    var todayMinutes = wx.getStorageSync('todayMinutes') || 0;
+    var todayTitleNum = wx.getStorageSync('todayTitleNum') || 0;
+    todayMinutes = todayMinutes + parseInt(that.data.hour) * 60 + parseInt(that.data.minute) + parseInt(that.data.second) / 60;
+    todayTitleNum = todayTitleNum + that.data.size;
+    wx.setStorageSync('todayMinutes', todayMinutes);
+    wx.setStorageSync('todayTitleNum', todayTitleNum);  
   }
 })

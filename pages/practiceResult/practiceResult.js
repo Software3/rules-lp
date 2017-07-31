@@ -7,6 +7,7 @@ Page({
   data: {
     result: 0,
     textTips: {},
+    titleType: 0,
   },
 
   /**
@@ -16,6 +17,7 @@ Page({
     var that = this;
     var result = options.result || 0;
     var textTips = {}
+    var titleType = 0;
     if (result == 0) {
       textTips.status = '提交成功';
       textTips.tip = '您已成功提交错误试题，可以继续练习错误试题';
@@ -26,10 +28,12 @@ Page({
       textTips.tip = '您已成功提交该组试题，可查看错题进行练习';
       textTips.primary = '继续下一组';
       textTips.secondary = '已完成';
+      titleType = options.titleType;
     }
     that.setData({
       result: result,
       textTips: textTips,
+      titleType: titleType,
     })
 
   },
@@ -41,8 +45,9 @@ Page({
     var that = this;
     var result = that.data.result;
     if (result == 0) {
+      var titleType = that.data.titleType;
       wx.redirectTo({
-        url: '../exercisePage/exercisePage',
+        url: '../exercisePage/exercisePage?titleType=' + titleType,
         success: function(res) {
           console.log('success' + res)
         },
