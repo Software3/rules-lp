@@ -1,4 +1,5 @@
 /* specialExercises.wxss */
+@import "../../utils/circleBtn.wxss";
 .time-area {
   width: 100%;
   height: 92rpx;
@@ -95,4 +96,14 @@
 
 .btn-next {
   width: 100%;
+}
+
+.circle-action {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 0 32rpx;
+}
+
+.correct-answer {
+  padding-bottom: 32rpx;
 }

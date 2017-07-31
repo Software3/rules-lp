@@ -18,6 +18,8 @@ Page({
     answer: [],
     titleType: 0,
     titlesStr: ['单选题', '填空题', '判断题', '简答题', '案例分析题', '论述题'],
+    answerActionStr: '显示',
+    isShowAnswer: false,
   },
 
   /**
@@ -28,7 +30,6 @@ Page({
     var titleType = parseInt(options.titleType);
     // 从缓存获取题目页数
     var titlePage = wx.getStorageSync('titlePage'+titleType) || 1;
-    console.log(wx.getStorageSync('titlePage' + titleType))
     wx.showNavigationBarLoading();
     wx.request({
       url: 'https://www.ltaoj.cn/rules/title/practice',
@@ -40,7 +41,6 @@ Page({
       method: 'get',
       success: function (res) {
         var titleList = res.data.object;
-        console.log(titleList)
         var title = titleList[0];
         var index = 0;
         var size = titleList.length;
@@ -348,5 +348,22 @@ Page({
       titleList[i].options[answer[i] - 1].checked = 1;
     }
     return titleList;
+  },
+
+  /**
+   * 事件函数，显示隐藏答案
+   */
+  answerAction: function (event) {
+    var that = this;
+    var isShowAnswer = that.data.isShowAnswer;
+    var answerActionStr = '显示';
+    isShowAnswer = !isShowAnswer;
+    if (isShowAnswer) {
+      answerActionStr = '隐藏';
+    }
+    that.setData({
+      isShowAnswer: isShowAnswer,
+      answerActionStr:  answerActionStr,
+    })
   }
 })

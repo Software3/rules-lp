@@ -7,6 +7,7 @@
   </view>
   <view class="title-area">
     <text class="title-name">({{titlesStr[titleType]}}){{title.name}}({{title.score}}分)</text>
+    
     <!--选择题区域  -->
     <view hidden="{{titleType!=0}}" class="option-group">
       <view id="1" class="option-item" bindtap="doSelect">
@@ -41,6 +42,16 @@
       <view class="question-item">
         <textarea id="question_{{index}}" value="{{answer[index]}}" placeholder="请输入问答题答案" maxlength="800" type="text" bindconfirm="storeQuestionAnswer" bindblur="storeQuestionAnswer"/>
       </view>
+    </view>
+
+    <!--圆形控制按钮  -->
+    <view hidden="{{titleType==0}}" class="circle-action">
+      <view class="circle-btn " bindtap="answerAction" hover-class="circle-btn-hover" hover-start-time="20" hover-stay-time="70">{{answerActionStr}}</view>
+    </view>
+    <!--正确答案区域  -->
+    <view class="correct-answer" hidden="{{!isShowAnswer}}">
+      <text>正确答案:</text>
+      <text>{{title.answer}}</text>
     </view>
   </view>
   <view class="control-area">
