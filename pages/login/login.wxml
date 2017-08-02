@@ -1,9 +1,19 @@
 <!--login.wxml-->
 <view class="container">
+
     <view class="form-area">
-      <input placeholder="{{ph_studentId}}" placeholder-class="text-placeholder" maxlength="10" type="number" focus="true" confirm-type="next" bindinput="keyAccount"/>
-      <input placeholder="{{ph_password}}" placeholder-class="text-placeholder" maxlength="20" type="text" password="true" confirm-type="done" bindinput="keyPassword"/>
-      <button type="primary" class="btn-primary" bindtap="doLogin" loading="{{loading}}">{{login}}</button>
-      <button type="default" bindtap="doBack">{{back}}</button>
+      <view class="form-row">
+        <text class="form-text">学号</text>
+        <input class="form-input" placeholder="{{ph_studentId}}" placeholder-class="text-placeholder" maxlength="10" type="number" focus="true" confirm-type="next" bindinput="keyAccount"/>
+      </view>
+      <view class="splitline"></view>
+      <view class="form-row">
+        <text class="form-text">密码</text>
+        <input class="form-input" placeholder="{{ph_password}}" placeholder-class="text-placeholder" maxlength="20" type="text" password="true" confirm-type="done" bindinput="keyPassword"/>
+      </view>
+    </view>
+    <view class="action-area">
+      <view class="btn-large" hover-class="btn-hover" hover-start-time="20" hover-stay-time="70" bindtap="doLogin">{{login}}</view>
+      <view class="btn-large-default" hover-class="btn-large-default-hover" hover-start-time="20" hover-stay-time="70" bindtap="doBack">{{back}}</view>
     </view>
 </view>
