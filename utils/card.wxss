@@ -75,8 +75,33 @@
   border-radius: 20rpx;
 }
 
+.btn-large {
+  text-align: center;
+  padding: 32rpx;
+  background-color: #4285F5;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+  margin: 0 32rpx;
+}
+
+.btn-large-default {
+  text-align: center;
+  padding: 32rpx;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-size: 28rpx;
+  border-radius: 20rpx;
+  margin: 0 32rpx;
+  border: 4rpx solid #eef2f7;
+}
+
 .btn-hover {
   background-color: rgba(66, 133, 245, 0.7)
+}
+
+.btn-large-default-hover {
+  background-color: rgba(178, 178, 178, 0.3);
 }
 
 .btn-disabled {
