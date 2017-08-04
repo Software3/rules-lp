@@ -368,5 +368,38 @@ Page({
     todayTitleNum = todayTitleNum + that.data.size;
     wx.setStorageSync('todayMinutes', todayMinutes);
     wx.setStorageSync('todayTitleNum', todayTitleNum);  
-  }
+  },
+
+  /**
+   * 填空文本框confirm事件
+   */
+  storeFillAnswer: function (e) {
+    var inputId = e.currentTarget.id;
+    var that = this;
+    var answer = that.data.answer;
+    var rowcol = inputId.split('_');
+    var row, col;
+    [row, col] = [parseInt(rowcol[1]), parseInt(rowcol[2])];
+    if (answer[row] == undefined) answer[row] = [];
+    answer[row][col] = e.detail.value;
+    that.setData({
+      answer: answer,
+    })
+  },
+
+  /**
+   * 问答题多行文本框confirm事件
+   */
+  storeQuestionAnswer: function (e) {
+    var inputId = e.currentTarget.id;
+    var that = this;
+    var answer = that.data.answer;
+    var rowcol = inputId.split('_');
+    var row;
+    row = parseInt(rowcol[1]);
+    answer[row] = e.detail.value;
+    that.setData({
+      answer: answer,
+    })
+  },
 })
