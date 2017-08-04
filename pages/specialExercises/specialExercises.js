@@ -131,9 +131,13 @@ Page({
     var index = that.data.index;
     if(index == 0) return;
     var title = that.data.titleList[--index];
+    var answerActionStr = "显示";
+    var isShowAnswer = false;
     that.setData({
       title: title,
       index: index,
+      answerActionStr: answerActionStr,
+      isShowAnswer: isShowAnswer,
     })
   },
 
@@ -217,9 +221,13 @@ Page({
       }
     }else {
       var title = that.data.titleList[++index];
+      var answerActionStr = "显示";
+      var isShowAnswer = false;
       that.setData({
         title: title,
         index: index,
+        answerActionStr: answerActionStr,
+        isShowAnswer: isShowAnswer,
       })
     }
   },

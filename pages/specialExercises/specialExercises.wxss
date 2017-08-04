@@ -149,9 +149,11 @@
 }
 
 .circle-action {
-  display: flex;
-  flex-direction: row-reverse;
-  padding: 0 32rpx;
+  position: absolute;
+  top: 50%;
+  right: 32rpx;
+  transform: translateY(-50%);
+  z-index: 2;
 }
 
 .correct-answer {
