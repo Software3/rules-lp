@@ -124,6 +124,7 @@ Page({
         for (var i = 0; i < textNoticeList.length; i++) {
           textNoticeList[i].submitTime = util.getDate(new Date(textNoticeList[i].submitTime));
         }
+        console.log(textNoticeList);
         that.setData({
           textNoticeList: textNoticeList,
         });
@@ -144,6 +145,14 @@ Page({
       dataType: 'text',
       success: function(res) {
         var pictureNoticeList = JSON.parse(res.data);
+        for (var i = 0;i < pictureNoticeList.length;i++) {
+          var pictureUrl = pictureNoticeList[i].picture;
+          if (pictureUrl.startsWith('https://www.ltaoj.cn/rules/')) {
+            return;
+          }
+          pictureUrl = 'https://www.ltaoj.cn/rules/' + pictureUrl;
+          pictureNoticeList[i].picture = pictureUrl;
+        }
         that.setData({
           pictureNoticeList: pictureNoticeList,
         })
