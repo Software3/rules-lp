@@ -25,10 +25,9 @@ Page({
         wx.hideNavigationBarLoading();
         var notice = that.parseNotice(JSON.parse(res.data));
         var pictureUrl = notice.picture;
-        if (pictureUrl.startsWith('https://www.ltaoj.cn/rules/')) {
-          return;
+        if (pictureUrl!=undefined && (!pictureUrl.startsWith('https://www.ltaoj.cn/rules/'))) {
+          pictureUrl = 'https://www.ltaoj.cn/rules/' + pictureUrl;
         }
-        pictureUrl = 'https://www.ltaoj.cn/rules/' + pictureUrl;
         notice.picture = pictureUrl;
         that.setData({
           notice: notice,
