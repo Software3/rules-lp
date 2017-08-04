@@ -59,6 +59,13 @@ Page({
                 fillsCount[i].push({ blankIdx: j, blankId: (1 + i) + "_" + j, row: (1 + i), col: j });
               }
               titleList[i].name = titleList[i].name.replace(/#/g, '______');
+              
+              var blankAnswers = titleList[i].answer.split('#');
+              var answerStr = '';
+              for (var k = 0; k < blankAnswers.length; k++) {
+                answerStr += ((k + 1) + ':' + blankAnswers[k] + '\n');
+              }
+              titleList[i].answer = answerStr;
             }
           }
           that.setData({
@@ -231,6 +238,7 @@ Page({
       })
     }
   },
+
   /**
    * 选择A选项
    */

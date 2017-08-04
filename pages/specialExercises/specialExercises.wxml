@@ -50,8 +50,8 @@
     </view>
     <!--正确答案区域  -->
     <view class="correct-answer" hidden="{{!isShowAnswer}}">
-      <text>正确答案:</text>
-      <text>{{title.answer}}</text>
+      <text class="correct-text">正确答案:</text>
+      <text class="answer-text">{{title.answer}}</text>
     </view>
   </view>
   <view class="control-area">
