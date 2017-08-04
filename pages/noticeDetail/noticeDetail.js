@@ -24,6 +24,12 @@ Page({
       success: function (res) {
         wx.hideNavigationBarLoading();
         var notice = that.parseNotice(JSON.parse(res.data));
+        var pictureUrl = notice.picture;
+        if (pictureUrl.startsWith('https://www.ltaoj.cn/rules/')) {
+          return;
+        }
+        pictureUrl = 'https://www.ltaoj.cn/rules/' + pictureUrl;
+        notice.picture = pictureUrl;
         that.setData({
           notice: notice,
         })
